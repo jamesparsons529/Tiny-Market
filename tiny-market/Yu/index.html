@@ -140,6 +140,13 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        #nft-card {
+            background-color: #28282a;
+            border-radius: 10%;
+            width: 80%;
+            height: 70%;
+        }
     </style>
 </head>
 <body>
@@ -159,25 +166,25 @@
         </nav>
     </header>
     <section class="gallery">
-        <div class="item">
+        <div class="item" onclick="open_nft_card()">
             <img src="1.png" alt="My Mind">
             <h3>My Mind</h3>
             <p>Artist and Blurb</p>
             <button>View</button>
         </div>
-        <div class="item">
+        <div class="item" onclick="open_nft_card()">
             <img src="2.png" alt="Olah">
             <h3>Olah</h3>
             <p>Artist and Blurb</p>
             <button>View</button>
         </div>
-        <div class="item">
+        <div class="item" onclick="open_nft_card()">
             <img src="3.png" alt="Gravity">
             <h3>Gravity</h3>
             <p>Artist and Blurb</p>
             <button>View</button>
         </div>
-        <div class="item">
+        <div class="item" onclick="open_nft_card()">
             <img src="4.png" alt="Future">
             <h3>Future</h3>
             <p>Artist and Blurb</p>
@@ -196,6 +203,22 @@
         </div>
     </div>
 
+    <div id="nft-card" class="modal">
+            <span class="close" onclick="close_nft_card()">&times;</span>
+        <div id="nft-card-details">
+            <h1>#NFT title#</h1>
+            <p>#artist blurb#</p>
+            <h3>#price#</h3>
+        </div>
+        <div id="nft-card-btns">
+            <button>Buy Now</button>
+            <button>Swap</button>
+        </div>
+        <div id="nft-img">
+            <img src="4.png" alt="Future">
+        </div>
+    </div>
+
     <script>
         function openModal() {
             document.getElementById('loginModal').style.display = "block";
@@ -205,11 +228,25 @@
             document.getElementById('loginModal').style.display = "none";
         }
 
+        function open_nft_card() {
+            document.getElementById('nft-card').style.display = "block";
+        }
+
+        function close_nft_card() {
+            document.getElementById('nft-card').style.display = "none";
+        }
+
         window.onclick = function(event) {
             if (event.target == document.getElementById('loginModal')) {
                 closeModal();
             }
+
+            if (event.target == document.getElementById('nft-card')) {
+                close_nft_card();
+            }
         }
+
+
     </script>
 </body>
 </html>
