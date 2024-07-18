@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artwork Gallery</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #1d1d1f;
+        }
+        .navbar .left-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .navbar .logo {
+            font-size: 1.5rem;
+        }
+        .navbar .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .navbar .search-bar input {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+        }
+        .navbar .menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .navbar .menu a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .gallery {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            padding: 1rem;
+        }
+        .gallery .item {
+            background-color: #1d1d1f;
+            border-radius: 10px;
+            padding: 1rem;
+            width: 200px;
+            text-align: center;
+        }
+        .gallery .item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .gallery .item h3 {
+            margin: 0.5rem 0;
+        }
+        .gallery .item p {
+            color: #bbb;
+        }
+        .gallery .item button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #cacacc;
+            color: #000000;
+            cursor: pointer;
+        }
+        .gallery .item button:hover {
+            background-color: #777;
+        }
+        .login-button {
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #888;
+            color: #fff;
+            cursor: pointer;
+        }
+        .login-button:hover {
+            background-color: #777;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: #1d1d1f;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .modal-content h2 {
+            margin-bottom: 20px;
+        }
+        .modal-content .wallet-option {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #1d1d1f;
+            border: 1px solid #555;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .modal-content .wallet-option:hover {
+            background-color: #555;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="left-section">
+            <img src="logo.svg" width="10%" height=auto>
+            <div class="logo">WEBSITE</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search">
+            </div>
+        </div>
+        <nav class="menu">
+            <a href="#">Browse</a>
+            <a href="#">Sell</a>
+            <a href="#">Home</a>
+            <button class="login-button" onclick="openModal()">Login</button>
+        </nav>
+    </header>
+    <section class="gallery">
+        <div class="item">
+            <img src="1.png" alt="My Mind">
+            <h3>My Mind</h3>
+            <p>Artist and Blurb</p>
+            <button>View</button>
+        </div>
+        <div class="item">
+            <img src="2.png" alt="Olah">
+            <h3>Olah</h3>
+            <p>Artist and Blurb</p>
+            <button>View</button>
+        </div>
+        <div class="item">
+            <img src="3.png" alt="Gravity">
+            <h3>Gravity</h3>
+            <p>Artist and Blurb</p>
+            <button>View</button>
+        </div>
+        <div class="item">
+            <img src="4.png" alt="Future">
+            <h3>Future</h3>
+            <p>Artist and Blurb</p>
+            <button>View</button>
+        </div>
+    </section>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Connect a Wallet</h2>
+            <p>Install one of the wallets below to begin purchasing.</p>
+            <div class="wallet-option">Leather (formerly Hiro wallet)</div>
+            <div class="wallet-option">Xverse Wallet</div>
+            <div class="wallet-option">Unisat Wallet</div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('loginModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('loginModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('loginModal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
