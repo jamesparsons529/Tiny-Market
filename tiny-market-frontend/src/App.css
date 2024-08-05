@@ -92,6 +92,151 @@
   margin-top: 100px;
 }
 
+/*---- NFT Card ----*/
+.browse-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+
+.nft-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.nft-item {
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.nft-item img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.nft-item h2 {
+  margin: 0 0 0.5rem 0;
+}
+
+.nft-item p {
+  margin: 0 0 1rem 0;
+  color: #bbb;
+}
+
+.nft-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.nft-price-usd {
+  color: #bbb;
+  font-size: 0.9rem;
+}
+
+.nft-floor-price {
+  color: #bbb;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.nft-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.nft-buttons button {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.buy-now {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.swap {
+  background-color: #ddd;
+  color: #333;
+}
+
+/*---- NFT Sell Page ----*/
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.nft-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.nft-image {
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.nft-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nft-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+.form-row {
+  display: flex;
+  gap: 2rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/*---- Screen Adjustment ----*/
 @media screen and (min-width: 769px) {
   .navbar .menu-toggle {
       display: none;

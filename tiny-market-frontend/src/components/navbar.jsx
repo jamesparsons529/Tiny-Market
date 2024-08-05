@@ -1,4 +1,8 @@
+import { WalletConnectButton } from './wallet-connect-button.jsx';
+import { UserCard } from './user-card.jsx';
+
 export const NavBar = () => {
+  return (
     <div className={'navbar'}>
         <div class="left-section">
           <UserCard />
@@ -14,4 +18,5 @@ export const NavBar = () => {
           <WalletConnectButton />
         </nav>
     </div>
+  );
 };

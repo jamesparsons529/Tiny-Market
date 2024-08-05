@@ -2,32 +2,18 @@ import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import './App.css';
 import * as MicroStacks from '@micro-stacks/react';
-import { WalletConnectButton } from './components/wallet-connect-button.jsx';
-import { UserCard } from './components/user-card.jsx';
 import { NetworkToggle } from './components/network-toggle.jsx';
+import { NFTCard } from './components/nft-card.jsx';
+import { NavBar } from './components/navbar.jsx';
 
 function Contents() {
   return (
     <>
-      <div className={'navbar'}>
-        <div class="left-section">
-          <UserCard />
-          <a href="index.html">Tiny Market</a>
-        </div>
-        <div class="menu-toggle">
-          <img src="menu-icon.svg" alt="Menu" width="30px"/>
-        </div>
-        <nav class="menu">
-          <ul>
-            <li><a href="browse.htm">Browse</a></li>
-            <li><a href="sell.htm">Sell</a></li>
-            <li><a href="index.html">Home</a></li>
-          </ul>
-          <WalletConnectButton />
-        </nav>
+      <div>
+        <NavBar />
       </div>
       <div id="content">
-        <h1>Tiny Market</h1>
+        <NFTCard />
       </div>
       <div class="footer">
         <NetworkToggle />
@@ -43,7 +29,7 @@ function Contents() {
   );
 }
 
-export default function App() {
+export default function HomePage() {
   return (
     <MicroStacks.ClientProvider
       appName={'React + micro-stacks'}
