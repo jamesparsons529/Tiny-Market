@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fleekhq/fleek-storage-js": "^1.0.24",
     "@stacks/connect": "^7.4.0",
     "@stacks/connect-react": "^22.2.0",
     "@testing-library/jest-dom": "^5.17.0",

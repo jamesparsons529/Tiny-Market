@@ -9,7 +9,7 @@ import { userSession } from "./ConnectWallet";
 
 const ContractCallVote = () => {
   const { doContractCall } = useConnect();
-
+  
   function vote(pick) {
     doContractCall({
       network: new StacksTestnet(),

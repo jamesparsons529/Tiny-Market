@@ -24,6 +24,10 @@
 ;; data vars
 ;;
 (define-data-var last-token-id uint u0) ;; highest token ID
+(define-constant MINT_PRICE u50000000)
+
+(define-data-var base-uri (string-ascii 100) "storageapi.fleek.co/87ae85d3-6af5-4525-94fc-620cfc39f293-bucket/nft-example/another_ape.json") ;; ipfs://
+
 
 ;; data maps
 ;;
@@ -38,9 +42,11 @@
     (ok (nft-get-owner? stacksies token-id))
 )
 
-(define-read-only (get-token-uri (token-id uint)) ;; Returns a link to metadata for specific NFT (non functional)
-    (ok none)
+(define-read-only (get-token-uri (id uint))
+ ;;(concat var-get base-uri "{id}" ".json")
+  (ok (some (var-get base-uri)))
 )
+
 ;; public functions
 ;;
 (define-public (transfer (token-id uint) (sender principal) (recipient principal)) ;; Checks if sender is tx-sender
@@ -50,16 +56,16 @@
     )
 ) 
 
-(define-public (mint (recipient principal))
-    (let 
-        (
-            (token-id (+ (var-get last-token-id) u1)) ;; sets new token-id to last-token-id + 1
-        )
-        (asserts! (is-eq tx-sender contract-owner) err-owner-only) ;; Checks if tx-sender is the contract owner
-        (try! (nft-mint? stacksies token-id recipient)) ;; attempts to mint a new NFT 
-        (asserts! (var-set last-token-id token-id) err-token-id-failure)
-        (ok token-id)
+(define-public (mint)
+  (let 
+    (
+      (id (+ (var-get last-token-id) u1))
     )
+    (try! (stx-transfer? MINT_PRICE tx-sender contract-owner))
+    (try! (nft-mint? stacksies id tx-sender))
+    (var-set last-token-id id)
+    (ok id)
+  )
 )
 ;; private functions
 ;;

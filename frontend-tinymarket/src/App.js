@@ -3,6 +3,7 @@ import "./App.css";
 
 import ConnectWallet from "./components/ConnectWallet";
 import ContractCallVote from "./components/ContractCallVote";
+import Mint from "./components/Mint";
 
 function App() {
   return (
@@ -16,8 +17,8 @@ function App() {
         <ConnectWallet />
 
 
-        {/* ContractCallVote file: `./src/components/ContractCallVote.js` */}
-        <ContractCallVote />
+        {/* MintT file: `./src/components/Mint.js` */}
+        <Mint/>
 
         <p>
           Edit <code>src/App.js</code> and save to reload.
