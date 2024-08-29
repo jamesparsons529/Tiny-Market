@@ -1,34 +1,11 @@
-.App {
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
+@keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
@@ -36,3 +13,244 @@
     transform: rotate(360deg);
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(3) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+.user-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #1d1d1f;
+  width: 100vw;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.navbar .left-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar .menu {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .menu ul {
+  display: flex;
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.navbar .menu li {
+  list-style-type: none;
+}
+
+.navbar a {
+  color: white;
+  padding: 20px;
+  text-decoration: none; 
+  flex-direction: row;
+}
+
+.navbar .menu-toggle img {
+  cursor: pointer;
+}
+
+#content {
+  margin-top: 100px;
+}
+
+
+
+
+
+
+
+
+.browse-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+
+.nft-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.nft-item {
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.nft-item img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.nft-item h2 {
+  margin: 0 0 0.5rem 0;
+}
+
+.nft-item p {
+  margin: 0 0 1rem 0;
+  color: #bbb;
+}
+
+.nft-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.nft-price-usd {
+  color: #bbb;
+  font-size: 0.9rem;
+}
+
+.nft-floor-price {
+  color: #bbb;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.nft-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.nft-buttons button {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.buy-now {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.swap {
+  background-color: #ddd;
+  color: #333;
+}
+
+/*---- NFT Sell Page ----
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.nft-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.nft-image {
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.nft-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nft-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+.form-row {
+  display: flex;
+  gap: 2rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/*---- Screen Adjustment ----
+@media screen and (min-width: 769px) {
+  .navbar .menu-toggle {
+      display: none;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .navbar .menu {
+      display: flex !important;
+  }
+} */
