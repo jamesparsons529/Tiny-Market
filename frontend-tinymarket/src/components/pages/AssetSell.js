@@ -1,10 +1,10 @@
 import React from 'react';
-import NavBar from '../NavBar';
+
 
 function AssetSell() {
   return (
-    <div>
-      <NavBar />
+    <main>
+        
       <div class="container">
             <h1>Sell or Swap</h1>
             <div class="nft-details">
@@ -49,7 +49,7 @@ function AssetSell() {
                 </div>
             </div>
         </div>
-    </div>
+    </main>
   );
 }
 

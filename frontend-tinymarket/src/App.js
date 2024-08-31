@@ -9,6 +9,7 @@ import "./App.css";
 import Home from './components/pages/home.js';
 import Profile from './components/pages/profile.js';
 import AssetSell from './components/pages/AssetSell.js';
+import AssetPurchase from  './components/pages/AssetPurchase.js';
 
 //CONTRACT FUNCTIONS
 import ConnectWallet from "./components/ConnectWallet";
@@ -17,45 +18,47 @@ import Mint from "./components/Mint";
 
 function App() {
   const [initialView, setInitialView] = useState(true);
+
   return (
     <Router>
       <div className="App">
-        {initialView ? (
-          
-          <header className="App-header">
-            <Mint/>
-            <div className={'navbar'}>
-              <div class="left-section">
-                <ConnectWallet />
-                <Link to="/">Tiny Market</Link>
-              </div>
-              <div class="menu-toggle">
-                <img src="menu-icon.svg" alt="Menu" width="30px"/>
-              </div>
-              <nav class="menu">
-                <a href="browse.htm">Browse</a>
-                <a href="sell.htm">Sell</a>
-                <a href="index.html" class="active1">Home</a>
-              </nav>
-            </div>
+        {/* Navbar will always be visible */}
+        <nav>
+            <ConnectWallet />
+          <div className="nav-center">
+            <Link to="/" onClick={() => setInitialView(false)}>Tiny Market</Link>
+          </div>
+          <div className="nav-menu">
+            <button onClick={() => setInitialView(false)} className="App-link">
+              <Link to="/">Home</Link>
+            </button>
+            <button onClick={() => setInitialView(false)} className="App-link">
+              <Link to="/profile">Profile</Link>
+            </button>
+            <button onClick={() => setInitialView(false)} className="App-link">
+              <Link to="/assetsell">AssetSell</Link>
+            </button>
+            <button onClick={() => setInitialView(false)} className="App-link">
+              <Link to="/assetpurchase">AssetPurchase</Link>
+            </button>
+          </div>
+        </nav>
 
-            {/* Buttons to navigate to different pages */}
-            <button onClick={() => setInitialView(false)} className="App-link"><Link to="/">Home</Link></button>
-            <button onClick={() => setInitialView(false)} className="App-link"><Link to="/profile">Profile</Link></button>
-            <button onClick={() => setInitialView(false)} className="App-link"><Link to="/assetsell">AssetSell</Link></button>
-            {/* <button onClick={() => setInitialView(false)} className="App-link"><Link to="/sell">Profile</Link></button>
-            <button onClick={() => setInitialView(false)} className="App-link"><Link to="/purchase">Go to Profile</Link></button> */}
+        {/* Conditional rendering based on initialView state */}
+        {initialView ? (
+          <header className="App-header">
+            <Mint />
           </header>
         ) : (
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/assetsell" element={<AssetSell />} />
+            <Route path="/assetpurchase" element={<AssetPurchase />} />
           </Routes>
         )}
       </div>
     </Router>
   );
 }
-
 export default App;
