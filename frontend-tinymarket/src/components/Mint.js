@@ -89,10 +89,7 @@ const Mint = () => {
   });
 
     console.log(src);
-
-
-
-
+    
   useEffect(() => {
     getNft();
   }, [minted])
