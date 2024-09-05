@@ -234,3 +234,65 @@ button {
       display: flex !important;
   }
 } 
+/*----PROFILE PAGE ----*/
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4vw;
+}
+.profile-info{
+  display: flex;
+  align-items: center;
+  flex-direction: column; 
+}
+.profile-pic{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.profile-pic:hover{
+  transform: scale(1.05);
+}
+
+.profile-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  bottom: 400px;
+  gap: 50px;
+}
+.profile-actions button{
+   padding: 10px, 20px;
+   font-size: 16px;
+   font-weight: bold;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   margin-bottom: 20px;
+   min-width: 150px;
+   
+  
+     
+}
+.profile-actions button:hover {
+  transform: translateY(-2px);
+}
+.nft-gallary{
+  text-align: center;
+  margin-top: 3rem;
+  
+}
+.nft-gallary h2{
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  
+}
+/* .nft-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+} */
