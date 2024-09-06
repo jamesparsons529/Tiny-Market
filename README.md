@@ -11,10 +11,29 @@ Follow these instructions to set up the project on your local machine for develo
 Ensure you have Visual Studio Code, Node.js installed on your computer and clarity extension.
 
 ### Starting the Test Environment
-
+#### Install docker
 ```bash
-npm run
-
+https://www.docker.com/products/docker-desktop/
+```
+#### Running Backend Containers
+Open a new terminal
+```bash
+cd tiny-market
+```
+```bash
+clarinet devnet start
+```
+*If you recieve an error about the network already being used, open docker and delete any containers currently running and then run*
+```bash
+docker network prune
+```
+#### Running Frontend
+Open a new terminal
+```bash
+cd frontend-tinymarket
+```
+```bash
+npm start
 ```
 
 ## Terminal Commands
