@@ -272,10 +272,7 @@ button {
    border-radius: 5px;
    cursor: pointer;
    margin-bottom: 20px;
-   min-width: 150px;
-   
-  
-     
+   min-width: 150px;  
 }
 .profile-actions button:hover {
   transform: translateY(-2px);
@@ -296,3 +293,22 @@ button {
   gap: 2rem;
   justify-items: center;
 } */
+
+/*----Transaction History PAGE ----*/
+.transaction-history-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.transaction-history-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+.transaction-history-table {
+  width: 100%;
+  border-collapse: collapse;
+}

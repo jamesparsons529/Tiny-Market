@@ -10,6 +10,7 @@ import Home from './components/pages/home.js';
 import Profile from './components/pages/profile.js';
 import AssetSell from './components/pages/AssetSell.js';
 import AssetPurchase from  './components/pages/AssetPurchase.js';
+import transactionHistory from './components/pages/transactionHistory.js'
 
 //CONTRACT FUNCTIONS
 import ConnectWallet from "./components/ConnectWallet";
@@ -55,6 +56,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/assetsell" element={<AssetSell />} />
             <Route path="/assetpurchase" element={<AssetPurchase />} />
+            <Route path="/transactions" element={<transactionHistory />} />
           </Routes>
         )}
       </div>
