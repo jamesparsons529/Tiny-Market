@@ -22,7 +22,7 @@
 (define-constant err-not-token-owner (err u102)) 
 
 ;; data vars
-;;
+;;323631
 (define-data-var last-token-id uint u0) ;; highest token ID
 (define-constant MINT_PRICE u50000000)
 

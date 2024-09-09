@@ -32,6 +32,7 @@
 (define-constant err-unintended-taker (err u2006))
 (define-constant err-asset-contract-not-whitelisted (err u2007)) 
 (define-constant err-payment-contract-not-whitelisted (err u2008)) 
+(define-constant err-invalid-token-id (err u2009))
 
 ;; data vars
 ;;
@@ -81,9 +82,13 @@
     (nft-asset-contract <nft-trait>) 
     (nft-asset {token-id: uint, expiry: uint, price: uint})
 )
-    (let ((listing-id (var-get last-listing-id)))
+    (let (
+        (listing-id (var-get last-listing-id))
+        (last-token-id (unwrap! (contract-call? .sip009-nft get-last-token-id) err-invalid-token-id))
+    )
         (asserts! (> (get expiry nft-asset) block-height) err-expiry-in-past)
         (asserts! (> (get price nft-asset) u0) err-price-zero)
+        (asserts! (<= (get token-id nft-asset) last-token-id) err-invalid-token-id)
         (try! (transfer-nft nft-asset-contract (get token-id nft-asset) tx-sender (as-contract tx-sender)))
         (map-set listings listing-id 
             {
