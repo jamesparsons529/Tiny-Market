@@ -34,7 +34,7 @@
 
 ;; read only functions
 ;;
-(define-read-only (get-last-token-id) ;; Function to track last token ID
+(define-public (get-last-token-id) ;; Function to track last token ID
     (ok (var-get last-token-id))
 )
 
@@ -56,16 +56,16 @@
     )
 ) 
 
-(define-public (mint)
-  (let 
-    (
-      (id (+ (var-get last-token-id) u1))
+(define-public (mint (recipient principal))
+    (let 
+        (
+            (token-id (+ (var-get last-token-id) u1)) ;; sets new token-id to last-token-id + 1
+        )
+        (asserts! (is-eq tx-sender contract-owner) err-owner-only) ;; Checks if tx-sender is the contract owner
+        (try! (nft-mint? stacksies token-id recipient)) ;; attempts to mint a new NFT 
+        (asserts! (var-set last-token-id token-id) err-token-id-failure)
+        (ok token-id)
     )
-    (try! (stx-transfer? MINT_PRICE tx-sender contract-owner))
-    (try! (nft-mint? stacksies id tx-sender))
-    (var-set last-token-id id)
-    (ok id)
-  )
 )
 ;; private functions
 ;;

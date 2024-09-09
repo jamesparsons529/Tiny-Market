@@ -52,6 +52,8 @@
     }
 )
 
+
+
 (define-map whitelisted-asset-contracts principal bool)
 
 
@@ -75,18 +77,31 @@
     )
 )
 
-(define-public (list-asset (nft-asset-contract <nft-trait>) (nft-asset {taker: (optional principal), token-id: uint, expiry: uint, price: uint, payment-asset-contract: (optional principal)}))
+(define-public (list-asset 
+    (nft-asset-contract <nft-trait>) 
+    (nft-asset {token-id: uint, expiry: uint, price: uint})
+)
     (let ((listing-id (var-get last-listing-id)))
-        (asserts! (is-whitelisted (contract-of nft-asset-contract)) err-asset-contract-not-whitelisted)
         (asserts! (> (get expiry nft-asset) block-height) err-expiry-in-past)
         (asserts! (> (get price nft-asset) u0) err-price-zero)
-        (asserts! (match (get payment-asset-contract nft-asset) payment-asset (is-whitelisted payment-asset) true) err-payment-contract-not-whitelisted)
         (try! (transfer-nft nft-asset-contract (get token-id nft-asset) tx-sender (as-contract tx-sender)))
-        (map-set listings listing-id (merge {maker: tx-sender, nft-asset-contract: (contract-of nft-asset-contract)} nft-asset))
+        (map-set listings listing-id 
+            {
+                maker: tx-sender,
+                taker: none, ;; optional field, set to none
+                token-id: (get token-id nft-asset),
+                nft-asset-contract: (contract-of nft-asset-contract),
+                expiry: (get expiry nft-asset),
+                price: (get price nft-asset),
+                payment-asset-contract: none ;; optional field, set to none
+            }
+        )
         (var-set last-listing-id (+ listing-id u1))
         (ok listing-id)
     )
 )
+
+
 
 (define-public (cancel-listing (listing-id uint) (nft-asset-contract <nft-trait>))
     (let (

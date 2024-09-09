@@ -1,20 +1,20 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { useConnect } from "@stacks/connect-react";
 import { StacksMocknet } from "@stacks/network";
 import {
   AnchorMode,
-  uintCV,
-  callReadOnlyFunction,
+  principalCV,
   makeStandardSTXPostCondition,
   FungibleConditionCode
 } from "@stacks/transactions";
 import { userSession } from "./ConnectWallet";
-import fleekStorage from '@fleekhq/fleek-storage-js';
 
 const Mint = () => {
   const { doContractCall } = useConnect();
   const [minted, setMinted] = useState(false);
   const [src, setSrc] = useState('');
+
+  const userAddress = userSession.loadUserData().profile.stxAddress.testnet;
 
   function mint() {
     const postConditionAddress = userSession.loadUserData().profile.stxAddress.testnet;
@@ -27,7 +27,9 @@ const Mint = () => {
       contractAddress: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
       contractName: "sip009-nft",
       functionName: "mint",
-      functionArgs: [],
+      functionArgs: [
+        principalCV(userAddress),
+      ],
       postConditions: [
         makeStandardSTXPostCondition(
           postConditionAddress,
@@ -36,16 +38,16 @@ const Mint = () => {
         )
       ],
       onFinish: (data) => {
-        window.alert("NFT Successful");
+        window.alert("NFT Minted Successfully");
         console.log("onFinish:", data);
-        console.log("Explorer:", `localhost:8000/txid/${data.txId}?chain=testnet`)
-        setMinted(true);
+        console.log("Explorer:", `localhost:8000/txid/${data.txId}?chain=testnet`);      
       },
       onCancel: () => {
         console.log("onCancel:", "Transaction was canceled");
         window.alert("NFT mint failed");
       },
     });
+    
   }
 
   /*

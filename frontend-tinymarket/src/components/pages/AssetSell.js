@@ -1,4 +1,5 @@
 import React from 'react';
+import Mint from '../Mint';
 
 
 function AssetSell() {
@@ -48,6 +49,7 @@ function AssetSell() {
                     </form>
                 </div>
             </div>
+            
         </div>
     </main>
   );

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import AssetCard from '../AssetCard';
 import {UserSession } from "@stacks/connect";
 export const userSession = new UserSession();
 
@@ -54,15 +53,7 @@ function Profile() {
           <button>My Transactions</button>
           <button>Edit Profile</button>
         </div>
-      </section>
-
-      <section className="nft-gallery">
-        <h2>My NFTs</h2>
-        <div className="nft-grid">
-          <AssetCard />
-        
-        </div>
-      </section>
+      </section>      
     </main>
   );
 }
