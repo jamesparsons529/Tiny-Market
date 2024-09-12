@@ -14,7 +14,6 @@ import { userSession } from "./ConnectWallet";
 const ListingForm = () => {
   const { doContractCall } = useConnect();
 
-  const [nftAssetContract, setNftAssetContract] = useState('');
   const [tokenId, setTokenId] = useState('');
   const [expiry, setExpiry] = useState('');
   const [price, setPrice] = useState('');
@@ -27,7 +26,7 @@ const ListingForm = () => {
     e.preventDefault();
 
     // Basic validation
-    if (!nftAssetContract || !tokenId || !expiry || !price) {
+    if (!tokenId || !expiry || !price) {
       window.alert("Please fill in all fields.");
       return;
     }
@@ -39,7 +38,7 @@ const ListingForm = () => {
       contractName: "tiny-market", // Contract name
       functionName: "list-asset",
       functionArgs: [
-        principalCV(nftAssetContract), // NFT asset contract principal
+        principalCV("ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sip009-nft"), // NFT asset contract principal
         tupleCV({
           'token-id': uintCV(parseInt(tokenId)),
           'expiry': uintCV(parseInt(expiry)),
@@ -54,9 +53,9 @@ const ListingForm = () => {
         )
       ],
       onFinish: (data) => {
+        console.log("onFinish:", data);
         window.alert("Asset listed successfully!");
         // Clear the input fields by resetting the state
-        setNftAssetContract('');
         setTokenId('');
         setExpiry('');
         setPrice('');
@@ -75,16 +74,6 @@ const ListingForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="nft-asset-contract">NFT Asset Contract Principal:</label>
-        <input
-          type="text"
-          id="nft-asset-contract"
-          value={nftAssetContract}
-          onChange={(e) => setNftAssetContract(e.target.value)}
-          required
-        />
-      </div>
 
       <div>
         <label htmlFor="token-id">NFT Token ID:</label>

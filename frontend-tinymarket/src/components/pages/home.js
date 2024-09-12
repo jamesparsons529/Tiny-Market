@@ -3,18 +3,9 @@ import AssestCard from '../AssetCard';
 import Mint from '../Mint';
 import Whitelist from '../Whitelist';
 import ListingForm from '../ListingForm';
-
+import GetLastTokenIdButton from '../totalNFTButton';
 
 function Home() {
-  // State to trigger a refresh of the NFT list
-  const [refresh, setRefresh] = useState(false);
-
-  // Define the onMint function to trigger a refresh
-  const handleMint = () => {
-    console.log("NFT minted parent callback triggered");
-    setRefresh(prev => !prev); // Toggle the refresh state5
-  };
-
   return (
     <div>
       <div>
@@ -28,6 +19,9 @@ function Home() {
       </div>
       <div>
         <ListingForm/>
+      </div>
+      <div>
+        <GetLastTokenIdButton/>
       </div>
     </div>
   );

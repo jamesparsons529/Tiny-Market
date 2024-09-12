@@ -20,7 +20,7 @@ const Mint = () => {
     const postConditionAddress = userSession.loadUserData().profile.stxAddress.testnet;
     const postConditionCode = FungibleConditionCode.LessEqual;
     const postConditionAmount = 50 * 1000000;
-
+  
     doContractCall({
       network: new StacksMocknet(),
       anchorMode: AnchorMode.Any,
@@ -40,15 +40,18 @@ const Mint = () => {
       onFinish: (data) => {
         window.alert("NFT Minted Successfully");
         console.log("onFinish:", data);
-        console.log("Explorer:", `localhost:8000/txid/${data.txId}?chain=testnet`);      
+        console.log("Transaction ID:", data.txId); // Logs the txId specifically
+        
+        // You can create a link to view it on the blockchain explorer:
+        console.log("Explorer URL:", `http://localhost:8000/txid/${data.txId}?chain=testnet`);
       },
       onCancel: () => {
         console.log("onCancel:", "Transaction was canceled");
         window.alert("NFT mint failed");
       },
     });
-    
   }
+  
 
   /*
   const getNft = useCallback(async () => {
