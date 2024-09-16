@@ -30,7 +30,7 @@ plan:
         - contract-publish:
             contract-name: sip009-nft
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 18780
+            cost: 19510
             path: "contracts\\sip009-nft.clar"
             anchor-block-only: true
             clarity-version: 2
@@ -44,7 +44,7 @@ plan:
         - contract-publish:
             contract-name: tiny-market
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 60130
+            cost: 61800
             path: "contracts\\tiny-market.clar"
             anchor-block-only: true
             clarity-version: 2

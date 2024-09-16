@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {UserSession } from "@stacks/connect";
+import AssetCard from '../AssetCard';
 export const userSession = new UserSession();
 
 
@@ -53,6 +54,11 @@ function Profile() {
           <button>My Transactions</button>
           <button>Edit Profile</button>
         </div>
+        <div>
+          <h1>My Mainnet Assets</h1>
+          <AssetCard />
+        </div>
+        
       </section>      
     </main>
   );

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useConnect } from "@stacks/connect-react";
-import { StacksMocknet } from "@stacks/network";
+import { StacksTestnet } from "@stacks/network";
 import {
   AnchorMode,
   principalCV,
@@ -12,7 +12,6 @@ import { userSession } from "./ConnectWallet";
 const Mint = () => {
   const { doContractCall } = useConnect();
   const [minted, setMinted] = useState(false);
-  const [src, setSrc] = useState('');
 
   const userAddress = userSession.loadUserData().profile.stxAddress.testnet;
 
@@ -22,10 +21,10 @@ const Mint = () => {
     const postConditionAmount = 50 * 1000000;
   
     doContractCall({
-      network: new StacksMocknet(),
+      network: new StacksTestnet(),
       anchorMode: AnchorMode.Any,
-      contractAddress: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
-      contractName: "sip009-nft",
+      contractAddress: "ST1NWPSRC02Z9A20RHSBGDEDG9H8CHS6ENJ2N3TTH", 
+      contractName: "sip009-nft", 
       functionName: "mint",
       functionArgs: [
         principalCV(userAddress),
@@ -40,10 +39,8 @@ const Mint = () => {
       onFinish: (data) => {
         window.alert("NFT Minted Successfully");
         console.log("onFinish:", data);
-        console.log("Transaction ID:", data.txId); // Logs the txId specifically
-        
-        // You can create a link to view it on the blockchain explorer:
-        console.log("Explorer URL:", `http://localhost:8000/txid/${data.txId}?chain=testnet`);
+        console.log("Transaction ID:", data.txId);
+        setMinted(true);  // Update minted state here
       },
       onCancel: () => {
         console.log("onCancel:", "Transaction was canceled");
@@ -117,7 +114,7 @@ const Mint = () => {
       }
       {minted && 
         <div>
-          <img src={src} alt="another ape" height="500px" width="500px" />
+          <img alt="another ape" height="500px" width="500px" />
         </div>
       }
     </div>

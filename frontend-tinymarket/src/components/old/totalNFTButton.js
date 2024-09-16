@@ -2,7 +2,7 @@ import React from 'react';
 import { useConnect } from "@stacks/connect-react";
 import { StacksMocknet } from "@stacks/network";
 import { callReadOnlyFunction, uintCV, getCVType, deserializeCV } from "@stacks/transactions";
-import { userSession } from "./ConnectWallet";  
+import { userSession } from "../ConnectWallet";  
 
 const GetLastTokenIdButton = () => {
   const { doContractCall } = useConnect();

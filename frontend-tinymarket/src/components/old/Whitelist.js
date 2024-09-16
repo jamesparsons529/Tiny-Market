@@ -8,7 +8,7 @@ import {
   principalCV,
   boolCV
 } from "@stacks/transactions";
-import { userSession } from "./ConnectWallet";
+import { userSession } from "../ConnectWallet";
 
 const Whitelist = () => {
   const { doContractCall } = useConnect();

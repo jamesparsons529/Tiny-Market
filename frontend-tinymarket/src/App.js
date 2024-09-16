@@ -1,47 +1,38 @@
-//LIBRARY IMPORTS
+// LIBRARY IMPORTS
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 // CSS FILES
 import "./App.css";
 
-//PAGE FILES
+// PAGE FILES
 import Home from './components/pages/home.js';
 import Profile from './components/pages/profile.js';
 import AssetSell from './components/pages/AssetSell.js';
-import AssetPurchase from  './components/pages/AssetPurchase.js';
-import transactionHistory from './components/pages/transactionHistory.js'
+import AssetPurchase from './components/pages/AssetPurchase.js';
+import transactionHistory from './components/pages/transactionHistory.js';
 
-//CONTRACT FUNCTIONS
+// CONTRACT FUNCTIONS
 import ConnectWallet from "./components/ConnectWallet";
 import Mint from "./components/Mint";
 
-
 function App() {
-  const [initialView, setInitialView] = useState(true);
-
+  const [initialView, setInitialView] = useState(false);
+  
   return (
     <Router>
       <div className="App">
         {/* Navbar will always be visible */}
         <nav>
-            <ConnectWallet />
+          <ConnectWallet />
           <div className="nav-center">
             <Link to="/" onClick={() => setInitialView(false)}>Tiny Market</Link>
           </div>
           <div className="nav-menu">
-            <button onClick={() => setInitialView(false)} className="App-link">
-              <Link to="/">Home</Link>
-            </button>
-            <button onClick={() => setInitialView(false)} className="App-link">
-              <Link to="/profile">Profile</Link>
-            </button>
-            <button onClick={() => setInitialView(false)} className="App-link">
-              <Link to="/assetsell">AssetSell</Link>
-            </button>
-            <button onClick={() => setInitialView(false)} className="App-link">
-              <Link to="/assetpurchase">AssetPurchase</Link>
-            </button>
+            <Link to="/" onClick={() => setInitialView(false)} className="App-link">Home</Link>
+            <Link to="/profile" onClick={() => setInitialView(false)} className="App-link">Profile</Link>
+            <Link to="/assetsell" onClick={() => setInitialView(false)} className="App-link">AssetSell</Link>
+            <Link to="/assetpurchase" onClick={() => setInitialView(false)} className="App-link">AssetPurchase</Link>
           </div>
         </nav>
 
@@ -63,4 +54,5 @@ function App() {
     </Router>
   );
 }
+
 export default App;

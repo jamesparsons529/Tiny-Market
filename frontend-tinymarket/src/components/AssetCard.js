@@ -37,7 +37,7 @@ function AssetCard() {
     }
 
     fetchNFTs();
-  }, [stxAddress]); // Dependency on the user's Stacks address
+  }, [stxAddress]); 
 
   return (
     <div>

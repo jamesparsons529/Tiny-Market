@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useConnect } from "@stacks/connect-react";
-import { StacksMocknet } from "@stacks/network";
+import { StacksTestnet } from "@stacks/network";
 import { 
   AnchorMode, 
   principalCV, 
@@ -14,6 +14,7 @@ import { userSession } from "./ConnectWallet";
 const ListingForm = () => {
   const { doContractCall } = useConnect();
 
+  // State for form values
   const [tokenId, setTokenId] = useState('');
   const [expiry, setExpiry] = useState('');
   const [price, setPrice] = useState('');
@@ -31,8 +32,13 @@ const ListingForm = () => {
       return;
     }
 
+    console.log("Token ID:", tokenId);
+    console.log("Expiry:", expiry);
+    console.log("Price:", price);
+    
+
     doContractCall({
-      network: new StacksMocknet(),
+      network: new StacksTestnet(),
       anchorMode: AnchorMode.Any,
       contractAddress: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM", // Contract address
       contractName: "tiny-market", // Contract name
@@ -73,43 +79,62 @@ const ListingForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-
-      <div>
-        <label htmlFor="token-id">NFT Token ID:</label>
-        <input
-          type="number"
-          id="token-id"
-          value={tokenId}
-          onChange={(e) => setTokenId(e.target.value)}
-          required
-        />
+    <div className="container">
+      <h1>Sell or Swap</h1>
+      <div className="nft-details">
+        <div className="nft-image">
+          <img src="stacks.png" alt="NFT Image" id="nftImage"/>
+        </div>
+        <div className="nft-form">
+          <h2 id="nftName">NFT Name</h2>
+          <form id="sellForm" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="token-id">Select NFT Token Id:</label>
+              <select 
+                id="token-id" 
+                name="token-id"
+                value={tokenId}
+                onChange={(e) => setTokenId(e.target.value)}
+              >
+                <option value="">Select Token ID</option>
+                <option value="1">u1</option>
+                <option value="2">u2</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="price">Sell Price (in STX)</label>
+              <input
+                type="number"
+                id="price"
+                name="price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                placeholder="Enter price in STX"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="expiry">Expiry Date</label>
+              <select 
+                id="expiry" 
+                name="expiry"
+                value={expiry}
+                onChange={(e) => setExpiry(e.target.value)}
+              >
+                <option value="">Select expiry</option>
+                <option value="1">1 hour</option>
+                <option value="12">12 hours</option>
+                <option value="24">1 day</option>
+                <option value="72">3 days</option>
+                <option value="168">7 days</option>
+                <option value="744">31 days</option>
+              </select>
+            </div>
+            <button type="submit">Continue</button>
+          </form>
+        </div>
       </div>
-
-      <div>
-        <label htmlFor="expiry">Expiry Block Height:</label>
-        <input
-          type="number"
-          id="expiry"
-          value={expiry}
-          onChange={(e) => setExpiry(e.target.value)}
-          required
-        />
-      </div>
-
-      <div>
-        <label htmlFor="price">Price:</label>
-        <input
-          type="number"
-          id="price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-      </div>
-
-      <button type="submit">List Asset</button>
-    </form>
+    </div>
   );
 };
 
