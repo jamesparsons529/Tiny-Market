@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useConnect } from "@stacks/connect-react";
 import { StacksTestnet } from "@stacks/network";
 import { 
@@ -13,20 +13,36 @@ import { userSession } from "./ConnectWallet";
 
 const ListingForm = () => {
   const { doContractCall } = useConnect();
-
-  // State for form values
   const [tokenId, setTokenId] = useState('');
   const [expiry, setExpiry] = useState('');
   const [price, setPrice] = useState('');
+  const [blockHeight, setBlockHeight] = useState(null);
 
   const postConditionAddress = userSession.loadUserData().profile.stxAddress.testnet;
   const postConditionCode = FungibleConditionCode.LessEqual;
   const postConditionAmount = 50 * 1000000;
 
+  useEffect(() => {
+    const fetchBlockHeight = async () => {
+      try {
+        const response = await fetch(`https://stacks-node-api.testnet.stacks.co/v2/info`);
+        const data = await response.json();
+        setBlockHeight(data.stacks_tip_height);
+      } catch (error) {
+        console.error("Error fetching block height:", error);
+      }
+    };
+
+    fetchBlockHeight(); // Initial fetch
+
+    const intervalId = setInterval(fetchBlockHeight, 60000); // Fetch every 60 seconds
+
+    return () => clearInterval(intervalId); // Clean up on unmount
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation
     if (!tokenId || !expiry || !price) {
       window.alert("Please fill in all fields.");
       return;
@@ -35,16 +51,15 @@ const ListingForm = () => {
     console.log("Token ID:", tokenId);
     console.log("Expiry:", expiry);
     console.log("Price:", price);
-    
 
     doContractCall({
       network: new StacksTestnet(),
       anchorMode: AnchorMode.Any,
-      contractAddress: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM", // Contract address
-      contractName: "tiny-market", // Contract name
+      contractAddress: "ST1NWPSRC02Z9A20RHSBGDEDG9H8CHS6ENJ2N3TTH",
+      contractName: "tiny-market",
       functionName: "list-asset",
       functionArgs: [
-        principalCV("ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sip009-nft"), // NFT asset contract principal
+        principalCV("ST1NWPSRC02Z9A20RHSBGDEDG9H8CHS6ENJ2N3TTH.sip009-nft"),
         tupleCV({
           'token-id': uintCV(parseInt(tokenId)),
           'expiry': uintCV(parseInt(expiry)),
@@ -61,7 +76,6 @@ const ListingForm = () => {
       onFinish: (data) => {
         console.log("onFinish:", data);
         window.alert("Asset listed successfully!");
-        // Clear the input fields by resetting the state
         setTokenId('');
         setExpiry('');
         setPrice('');
@@ -71,7 +85,6 @@ const ListingForm = () => {
         window.alert("Asset listing failed.");
       },
       onError: (error) => {
-        // Log and handle errors
         console.error("Error during contract call:", error);
         window.alert("An error occurred while listing the asset. Please try again.");
       }
@@ -87,6 +100,7 @@ const ListingForm = () => {
         </div>
         <div className="nft-form">
           <h2 id="nftName">NFT Name</h2>
+          <p>Current Block Height: {blockHeight !== null ? blockHeight : "Loading..."}</p>
           <form id="sellForm" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="token-id">Select NFT Token Id:</label>
@@ -99,6 +113,7 @@ const ListingForm = () => {
                 <option value="">Select Token ID</option>
                 <option value="1">u1</option>
                 <option value="2">u2</option>
+                <option value="3">u3</option>
               </select>
             </div>
             <div className="form-group">
@@ -127,7 +142,7 @@ const ListingForm = () => {
                 <option value="24">1 day</option>
                 <option value="72">3 days</option>
                 <option value="168">7 days</option>
-                <option value="744">31 days</option>
+                <option value="10000000">31 days</option>
               </select>
             </div>
             <button type="submit">Continue</button>
