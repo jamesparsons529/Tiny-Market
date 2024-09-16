@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {UserSession } from "@stacks/connect";
 import AssetCard from '../AssetCard';
+import TestNetNFTSList from '../TestNetNFTSList';
 export const userSession = new UserSession();
 
 
@@ -53,6 +54,10 @@ function Profile() {
         <div className="profile-actions">
           <button>My Transactions</button>
           <button>Edit Profile</button>
+        </div>
+        <div>
+          <h1>My Testnet Assets</h1>
+          <TestNetNFTSList /> 
         </div>
         <div>
           <h1>My Mainnet Assets</h1>

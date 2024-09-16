@@ -61,7 +61,6 @@
         (
             (token-id (+ (var-get last-token-id) u1)) ;; sets new token-id to last-token-id + 1
         )
-        (asserts! (is-eq tx-sender contract-owner) err-owner-only) ;; Checks if tx-sender is the contract owner
         (try! (nft-mint? stacksies token-id recipient)) ;; attempts to mint a new NFT
         (var-set last-token-id token-id) ;; sets last-token-id to token-id
         (ok token-id)

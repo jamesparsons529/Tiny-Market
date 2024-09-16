@@ -5,9 +5,8 @@ import {
   AnchorMode, 
   principalCV, 
   uintCV, 
-  tupleCV, 
-  FungibleConditionCode,
-  makeStandardSTXPostCondition 
+  tupleCV,
+  PostConditionMode
 } from "@stacks/transactions";
 import { userSession } from "./ConnectWallet";
 
@@ -32,17 +31,16 @@ const ListingForm = () => {
         console.error("Error fetching block height:", error);
       }
     };
-  
+
     fetchBlockHeight(); // Initial fetch
-  
+
     const intervalId = setInterval(() => {
       console.log("Fetching block height..."); // Debugging
       fetchBlockHeight();
     }, 60000); // Fetch every 60 seconds
-  
+
     return () => clearInterval(intervalId); // Clean up on unmount
   }, []);
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,13 +50,19 @@ const ListingForm = () => {
       return;
     }
 
+    // Validate expiry
+    if (blockHeight !== null && parseInt(expiry) <= blockHeight + 50) {
+      window.alert("Expiry date must be greater than the current block height by at least 50.");
+      return;
+    }
+
     console.log("Token ID:", tokenId);
     console.log("Expiry:", expiry);
     console.log("Price:", price);
 
     doContractCall({
       network: new StacksTestnet(),
-      anchorMode: AnchorMode.Any,
+      anchorMode: AnchorMode.Allow,
       contractAddress: "ST1NWPSRC02Z9A20RHSBGDEDG9H8CHS6ENJ2N3TTH",
       contractName: "tiny-market",
       functionName: "list-asset",
@@ -70,6 +74,7 @@ const ListingForm = () => {
           'price': uintCV(parseInt(price)),
         }),
       ],
+      postConditionMode: PostConditionMode.Allow,
       onFinish: (data) => {
         console.log("onFinish:", data);
         window.alert("Asset listed successfully!");
@@ -101,17 +106,15 @@ const ListingForm = () => {
           <form id="sellForm" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="token-id">Select NFT Token Id:</label>
-              <select 
+              <input 
+                type="number" 
                 id="token-id" 
                 name="token-id"
                 value={tokenId}
                 onChange={(e) => setTokenId(e.target.value)}
-              >
-                <option value="">Select Token ID</option>
-                <option value="1">u1</option>
-                <option value="2">u2</option>
-                <option value="3">u3</option>
-              </select>
+                placeholder="Enter Token ID"
+                required
+              />
             </div>
             <div className="form-group">
               <label htmlFor="price">Sell Price (in STX)</label>
@@ -126,21 +129,16 @@ const ListingForm = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="expiry">Expiry Date</label>
-              <select 
+              <label htmlFor="expiry">Expiry Height</label>
+              <input 
+                type="number" 
                 id="expiry" 
                 name="expiry"
                 value={expiry}
                 onChange={(e) => setExpiry(e.target.value)}
-              >
-                <option value="">Select expiry</option>
-                <option value="1">1 hour</option>
-                <option value="12">12 hours</option>
-                <option value="24">1 day</option>
-                <option value="72">3 days</option>
-                <option value="168">7 days</option>
-                <option value="10000000">31 days</option>
-              </select>
+                placeholder="Enter expiry height"
+                required
+              />
             </div>
             <button type="submit">Continue</button>
           </form>

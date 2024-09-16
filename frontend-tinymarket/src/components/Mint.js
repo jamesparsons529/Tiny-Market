@@ -4,8 +4,7 @@ import { StacksTestnet } from "@stacks/network";
 import {
   AnchorMode,
   principalCV,
-  makeStandardSTXPostCondition,
-  FungibleConditionCode
+  PostConditionMode
 } from "@stacks/transactions";
 import { userSession } from "./ConnectWallet";
 
@@ -16,10 +15,6 @@ const Mint = () => {
   const userAddress = userSession.loadUserData().profile.stxAddress.testnet;
 
   function mint() {
-    const postConditionAddress = userSession.loadUserData().profile.stxAddress.testnet;
-    const postConditionCode = FungibleConditionCode.LessEqual;
-    const postConditionAmount = 50 * 1000000;
-  
     doContractCall({
       network: new StacksTestnet(),
       anchorMode: AnchorMode.Any,
@@ -29,13 +24,7 @@ const Mint = () => {
       functionArgs: [
         principalCV(userAddress),
       ],
-      postConditions: [
-        makeStandardSTXPostCondition(
-          postConditionAddress,
-          postConditionCode,
-          postConditionAmount
-        )
-      ],
+      postConditionMode: PostConditionMode.Allow,
       onFinish: (data) => {
         window.alert("NFT Minted Successfully");
         console.log("onFinish:", data);
