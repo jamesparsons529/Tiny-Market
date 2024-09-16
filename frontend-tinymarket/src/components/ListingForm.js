@@ -18,27 +18,31 @@ const ListingForm = () => {
   const [price, setPrice] = useState('');
   const [blockHeight, setBlockHeight] = useState(null);
 
-  const postConditionAddress = userSession.loadUserData().profile.stxAddress.testnet;
-  const postConditionCode = FungibleConditionCode.LessEqual;
-  const postConditionAmount = 50 * 1000000;
-
   useEffect(() => {
     const fetchBlockHeight = async () => {
       try {
         const response = await fetch(`https://stacks-node-api.testnet.stacks.co/v2/info`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
         const data = await response.json();
+        console.log("Fetched data:", data); // Debugging
         setBlockHeight(data.stacks_tip_height);
       } catch (error) {
         console.error("Error fetching block height:", error);
       }
     };
-
+  
     fetchBlockHeight(); // Initial fetch
-
-    const intervalId = setInterval(fetchBlockHeight, 60000); // Fetch every 60 seconds
-
+  
+    const intervalId = setInterval(() => {
+      console.log("Fetching block height..."); // Debugging
+      fetchBlockHeight();
+    }, 60000); // Fetch every 60 seconds
+  
     return () => clearInterval(intervalId); // Clean up on unmount
   }, []);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,13 +69,6 @@ const ListingForm = () => {
           'expiry': uintCV(parseInt(expiry)),
           'price': uintCV(parseInt(price)),
         }),
-      ],
-      postConditions: [
-        makeStandardSTXPostCondition(
-          postConditionAddress,
-          postConditionCode,
-          postConditionAmount
-        )
       ],
       onFinish: (data) => {
         console.log("onFinish:", data);
