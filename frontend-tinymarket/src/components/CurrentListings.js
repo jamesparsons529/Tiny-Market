@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { callReadOnlyFunction } from '@stacks/transactions'; // Import the necessary library functions
 import { StacksTestnet } from "@stacks/network";
-import { uintCV } from "@stacks/transactions";
+import { uintCV, addressFromHashMode } from "@stacks/transactions";
 import { userSession } from "./ConnectWallet";
 
 const CurrentListings = ({ contractAddress, contractName }) => {
@@ -9,6 +9,7 @@ const CurrentListings = ({ contractAddress, contractName }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const stxAddress = userSession.loadUserData().profile.stxAddress.mainnet;
+  console.log('STX Address:', userSession.loadUserData());
 
   // Function to get the last listing ID
   const fetchLastListingId = async () => {
@@ -23,7 +24,6 @@ const CurrentListings = ({ contractAddress, contractName }) => {
       };
       
       const result = await callReadOnlyFunction(options);
-      console.log('Result from get-last-token-id:', result);
       return Number(result.value.value); // Get the number from the result
     } catch (error) {
       console.error('Error fetching last listing ID:', error);
@@ -44,7 +44,6 @@ const CurrentListings = ({ contractAddress, contractName }) => {
       };
       
       const result = await callReadOnlyFunction(options);
-      console.log(`Result from get-listing for ID ${listingId}:`, result);
       return result.value ? result.value : null;
     } catch (error) {
       console.error(`Error fetching listing ID ${listingId}:`, error);
@@ -55,29 +54,29 @@ const CurrentListings = ({ contractAddress, contractName }) => {
   // Fetch all active listings
   const fetchAllListings = async () => {
     setLoading(true);
-    setError(null); // Reset error before fetching
+    setError(null); 
     try {
       const lastListingId = await fetchLastListingId();
       if (isNaN(lastListingId)) {
         throw new Error('Invalid last listing ID');
       }
-      console.log('Last listing ID:', lastListingId);
       const fetchedListings = [];
       
-      for (let id = 0; id <= lastListingId; id++) { // Use <= to include the last ID
+      for (let id = 0; id <= lastListingId; id++) {
         const listing = await fetchListing(id);
         if (listing) {
           const tokenId = listing.data['token-id']?.value;
           const price = listing.data['price']?.value;
+          const makerHash = listing.data['maker']?.address?.hash160;
           const expiry = listing.data['expiry']?.value;
 
-          // Ensure tokenId and price are BigInt and greater than 0
           if (typeof tokenId === 'bigint' && price > 0) {
             fetchedListings.push({
-              listingId: id.toString(), // Convert ID to string for display
-              tokenId: tokenId.toString(), // Convert BigInt to string for display
-              price: price.toString(),     // Convert BigInt to string for display
-              expiry: expiry ? expiry.toString() : 'N/A', // Convert expiry to string or 'N/A'
+              listingId: id.toString(),
+              tokenId: tokenId.toString(), 
+              price: price.toString(),    
+              makerAddress: makerHash,
+              expiry: expiry ? expiry.toString() : 'Unknown', 
             });
           } else {
             console.warn(`Invalid listing data for ID ${id}`);
@@ -117,7 +116,7 @@ const CurrentListings = ({ contractAddress, contractName }) => {
         <ul>
           {listings.map((listing, index) => (
             <li key={index}>
-              Listing ID: {listing.listingId} - Token ID: {listing.tokenId} - Price: {listing.price} STX - Expiry: {listing.expiry}
+              Listing ID: {listing.listingId} - Token ID: {listing.tokenId} - Price: {listing.price} STX - Maker: {listing.makerAddress} - Expiry: {listing.expiry}
             </li>
           ))}
         </ul>
