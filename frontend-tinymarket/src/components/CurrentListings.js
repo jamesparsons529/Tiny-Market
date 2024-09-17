@@ -9,7 +9,6 @@ const CurrentListings = ({ contractAddress, contractName }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const stxAddress = userSession.loadUserData().profile.stxAddress.mainnet;
-  console.log('STX Address:', userSession.loadUserData());
 
   // Function to get the last listing ID
   const fetchLastListingId = async () => {
@@ -96,7 +95,7 @@ const CurrentListings = ({ contractAddress, contractName }) => {
   };
 
   useEffect(() => {
-    fetchAllListings(); // Fetch listings on component mount
+    fetchAllListings();
   }, []);
 
   if (loading) {
