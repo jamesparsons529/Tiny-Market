@@ -16,6 +16,24 @@ const ListingForm = () => {
   const [expiry, setExpiry] = useState('');
   const [price, setPrice] = useState('');
   const [blockHeight, setBlockHeight] = useState(null);
+  const [nfts, setNfts] = useState([]);
+  const [loadingNfts, setLoadingNfts] = useState(true);
+
+  const fetchNFTs = async (principal) => {
+    try {
+      const response = await fetch(
+        `https://stacks-node-api.testnet.stacks.co/extended/v1/tokens/nft/holdings?principal=${principal}`
+      );
+      if (!response.ok) {
+        throw new Error('Failed to fetch NFTs');
+      }
+      const data = await response.json();
+      setNfts(data.results);
+      setLoadingNfts(false);
+    } catch (error) {
+      console.error("Error fetching NFTs:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchBlockHeight = async () => {
@@ -33,13 +51,20 @@ const ListingForm = () => {
     };
 
     fetchBlockHeight(); // Initial fetch
-
     const intervalId = setInterval(() => {
       console.log("Fetching block height..."); // Debugging
       fetchBlockHeight();
     }, 60000); // Fetch every 60 seconds
 
     return () => clearInterval(intervalId); // Clean up on unmount
+  }, []);
+
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
+      const userData = userSession.loadUserData();
+      const principal = userData.profile.stxAddress.testnet;
+      fetchNFTs(principal);
+    }
   }, []);
 
   const handleSubmit = async (e) => {
@@ -106,15 +131,29 @@ const ListingForm = () => {
           <form id="sellForm" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="token-id">Select NFT Token Id:</label>
-              <input 
-                type="number" 
-                id="token-id" 
-                name="token-id"
-                value={tokenId}
-                onChange={(e) => setTokenId(e.target.value)}
-                placeholder="Enter Token ID"
-                required
-              />
+              {loadingNfts ? (
+                <p>Loading NFTs...</p>
+              ) : (
+                <select
+                  id="token-id"
+                  name="token-id"
+                  value={tokenId}
+                  onChange={(e) => setTokenId(e.target.value)}
+                  required
+                >
+                  <option value="">Select an NFT</option>
+                  {nfts.map((nft) => {
+                    const tokenIdStr = nft.value.repr.replace(/[^\d]/g, '');
+                    const tokenIdInt = parseInt(tokenIdStr, 10);
+                    return (
+                      <option key={tokenIdStr} value={tokenIdInt}>
+                        Token ID: {tokenIdInt}
+                      </option>
+                    );
+                  })}
+                </select>
+
+              )}
             </div>
             <div className="form-group">
               <label htmlFor="price">Sell Price (in STX)</label>
