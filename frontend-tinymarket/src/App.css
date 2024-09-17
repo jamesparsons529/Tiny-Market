@@ -100,7 +100,7 @@ nav a:hover {
   border-radius: 10px;
   overflow: hidden;
   padding: 1rem;
-  max-width: 1000px;
+  max-width: 500px;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -110,16 +110,23 @@ nav a:hover {
 }
 
 .nft-item img {
-  width: 100%;
+  width: 400px;
+  height: 400px;
   border-radius: 10px;
   margin-bottom: 1rem;
+  align-self: center;
 }
 
 .nft-item h2 {
   margin: 0 0 0.5rem 0;
   font-size: 1.25rem;
   color: #fff;
+  overflow-wrap: break-word; /* Ensure long words break and wrap */
+  word-wrap: break-word; /* Older browser support for word wrapping */
+  word-break: break-word; /* Breaks long words that would otherwise overflow */
 }
+
+
 
 .nft-item p {
   margin: 0 0 1rem 0;

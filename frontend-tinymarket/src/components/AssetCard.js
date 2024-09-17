@@ -34,8 +34,6 @@ function AssetCard() {
           `https://stacks-node-api.mainnet.stacks.co/extended/v1/tokens/nft/holdings?principal=${stxAddress}`
         );
         const data = await response.json();
-
-        console.log(data);
         
         // Check if data exists and set it to state
         if (data.results && data.results.length > 0) {
@@ -62,13 +60,11 @@ function AssetCard() {
                 network,
                 senderAddress: stxAddress
               });
-              console.log(result);
               const tokenUri = result.value.value.data || '';
-              console.log(`Token URI: ${tokenUri}`);
+              console.log(contractName + ` Token URI: ${tokenUri}`);
 
               // Convert IPFS URL to HTTP URL
               const ipfsImageUrl = tokenUri.startsWith('ipfs://') ? convertIpfsUrl(tokenUri) : tokenUri;
-              console.log(`Image URL: ${ipfsImageUrl}`);
 
               // Fetch data from IPFS and return the image URL
               async function fetchDataFromIpfs() {
@@ -78,11 +74,9 @@ function AssetCard() {
                     throw new Error(`HTTP error! status: ${response.status}`);
                   }
                   const data = await response.json();
-                  console.log('Fetched data:', data);
                   const fetchedImageUrl = data.image;
                   const imageUrl = convertIpfsUrl(fetchedImageUrl);
-                  console.log('Fetched image URL:', fetchedImageUrl);
-                  console.log('Image URL:', imageUrl);
+                  console.log(contractName + ' Image URL:', imageUrl);
                   return imageUrl;
                 } catch (error) {
                   console.error('Error fetching data from IPFS:', error);
