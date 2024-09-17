@@ -49,7 +49,7 @@ function AssetCard() {
 
             // Define the contract and function to call
             const network = new StacksMainnet();
-            const tokenUriFunction = 'get-token-uri'; // Replace with the actual function name if different
+            const tokenUriFunction = 'get-token-uri';
             const functionArgs = [uintCV(tokenId)]; // Pass Token ID
 
             // Call the contract function
@@ -63,11 +63,35 @@ function AssetCard() {
                 senderAddress: stxAddress
               });
               console.log(result);
-              const tokenUri = result.value.value.data || ''; // Adjust if the result structure is different
+              const tokenUri = result.value.value.data || '';
               console.log(`Token URI: ${tokenUri}`);
 
               // Convert IPFS URL to HTTP URL
-              const imageUrl = tokenUri.startsWith('ipfs://') ? convertIpfsUrl(tokenUri) : tokenUri;
+              const ipfsImageUrl = tokenUri.startsWith('ipfs://') ? convertIpfsUrl(tokenUri) : tokenUri;
+              console.log(`Image URL: ${ipfsImageUrl}`);
+
+              // Fetch data from IPFS and return the image URL
+              async function fetchDataFromIpfs() {
+                try {
+                  const response = await fetch(ipfsImageUrl);
+                  if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                  }
+                  const data = await response.json();
+                  console.log('Fetched data:', data);
+                  const fetchedImageUrl = data.image;
+                  const imageUrl = convertIpfsUrl(fetchedImageUrl);
+                  console.log('Fetched image URL:', fetchedImageUrl);
+                  console.log('Image URL:', imageUrl);
+                  return imageUrl;
+                } catch (error) {
+                  console.error('Error fetching data from IPFS:', error);
+                  return null;
+                }
+              }
+              
+              // Call the function to fetch data and get the image URL
+              const imageUrl = await fetchDataFromIpfs();
               
               return {
                 ...nft,
@@ -88,6 +112,7 @@ function AssetCard() {
             }
           }));
           setNfts(nftsWithDetails);
+          console.log('NFTs:', nftsWithDetails);
         } else {
           console.log('No NFTs found for this address.');
         }
@@ -113,7 +138,7 @@ function AssetCard() {
               ) : nfts.length > 0 ? (
                 nfts.map((nft, index) => (
                   <div className="nft-item" key={index}>
-                    <img src={nft.imageUrl} alt={nft.asset_identifier} />
+                    <img src={nft.imageUrl} alt={`NFT ${index}`} />
                     <h2>{nft.asset_identifier}</h2>
                     <p>NFT Contract: {nft.principal}.{nft.contractName}</p>
                     <p>Token ID: {nft.tokenId}</p>
