@@ -22,7 +22,6 @@ const PurchaseForm = () => {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        console.log("Fetched data:", data);
         setBlockHeight(data.stacks_tip_height);
       } catch (error) {
         console.error("Error fetching block height:", error);

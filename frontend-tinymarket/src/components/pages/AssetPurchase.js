@@ -2,6 +2,7 @@ import React from 'react';
 import Mint from '../Mint';
 
 import PurchaseForm from '../purchaseForm';
+import CurrentListings from '../CurrentListings';
 
 function AssetPurchase() {
 
@@ -14,7 +15,7 @@ function AssetPurchase() {
             <PurchaseForm />
         </div>
         <div>
-            
+            <CurrentListings />
         </div>
     </main>
   );
