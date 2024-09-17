@@ -21,7 +21,6 @@ function TestNetNFTSList() {
           `https://stacks-node-api.testnet.stacks.co/extended/v1/tokens/nft/holdings?principal=${stxAddress}` // Change to Testnet endpoint
         );
         const data = await response.json();
-        console.log(data);
         
         // Check if data exists and set it to state
         if (data.results && data.results.length > 0) {
