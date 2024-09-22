@@ -1,4 +1,27 @@
 export const SellPageContents = () => {
+    const [paymentMethod, setPaymentMethod] = useState('STX');
+    const [paymentAssetContract, setPaymentAssetContract] = useState('');
+
+    const handlePaymentMethodChange = (event) => {
+        setPaymentMethod(event.target.value);
+    };
+
+    const handleContractAddressChange = (event) => {
+        setPaymentAssetContract(event.target.value);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        
+        if (paymentMethod === 'STX') {
+            // Call the function to fulfill listing with STX
+            fulfillListingSTX();
+        } else {
+            // Call the function to fulfill listing with Sip10-token, passing the contract address
+            fulfillListingFT(paymentAssetContract);
+        }
+    };
+
     return (
         <div class="container">
             <h1>Sell or Swap</h1>
@@ -8,7 +31,7 @@ export const SellPageContents = () => {
                 </div>
                 <div class="nft-form">
                     <h2 id="nftName">NFT Name</h2>
-                    <form id="sellForm">
+                    <form id="sellForm" onSubmit={handleSubmit}>
                         <div class="form-group">
                             <label for="sellMethod">Sell Method</label>
                             <select id="sellMethod" name="sellMethod">
@@ -16,6 +39,22 @@ export const SellPageContents = () => {
                                 <option value="swap">Swap</option>
                             </select>
                         </div>
+                        
+                        <div class="form-group">
+                            <label for="paymentMethod">Payment Method</label>
+                            <select id="paymentMethod" value={paymentMethod} onChange={handlePaymentMethodChange}>
+                                <option value="STX">STX</option>
+                                <option value="Sip10-token">Sip10-token</option>
+                            </select>
+                        </div>
+
+                        {paymentMethod === 'Sip10-token' && (
+                            <div class="form-group">
+                                <label for="paymentAssetContract">Sip10-token Contract Address</label>
+                                <input type="text" id="paymentAssetContract" value={paymentAssetContract} onChange={handleContractAddressChange} placeholder="Enter contract address"/>
+                            </div>
+                        )}
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="sellPrice">Sell Price</label>
