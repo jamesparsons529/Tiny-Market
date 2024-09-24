@@ -1,6 +1,6 @@
 // LIBRARY IMPORTS
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
 
 // CSS FILES
 import "./App.css";
@@ -15,10 +15,24 @@ import transactionHistory from './components/pages/transactionHistory.js';
 // CONTRACT FUNCTIONS
 import ConnectWallet from "./components/ConnectWallet";
 import Mint from "./components/Mint";
+import { userSession } from "./components/ConnectWallet"; // Assuming userSession is managed here
+
+// ProtectedRoute Component
+function ProtectedRoute({ children }) {
+  const isUserSignedIn = userSession.isUserSignedIn(); // Check login status
+
+  if (!isUserSignedIn) {
+    // If not signed in, alert the user and redirect to home
+    window.alert("You must sign in to access this page.");
+    return <Navigate to="/" replace />;
+  }
+
+  return children; // If signed in, render the protected component
+}
 
 function App() {
   const [initialView, setInitialView] = useState(false);
-  
+
   return (
     <Router>
       <div className="App">
@@ -44,10 +58,39 @@ function App() {
         ) : (
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/assetsell" element={<AssetSell />} />
-            <Route path="/assetpurchase" element={<AssetPurchase />} />
-            <Route path="/transactions" element={<transactionHistory />} />
+            {/* Use ProtectedRoute to wrap routes that require login */}
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/assetsell"
+              element={
+                <ProtectedRoute>
+                  <AssetSell />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/assetpurchase"
+              element={
+                <ProtectedRoute>
+                  <AssetPurchase />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/transactions"
+              element={
+                <ProtectedRoute>
+                  <transactionHistory />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         )}
       </div>
