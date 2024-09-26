@@ -1,0 +1,35 @@
+.listings-container {
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+    font-family: Arial, sans-serif;
+  }
+  
+  .listings-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .listings-table th,
+  .listings-table td {
+    border: 1px solid #555;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .listings-table th {
+    background-color: #444;
+  }
+  
+  .listings-table td {
+    background-color: #222;
+  }
+  
+  .listings-table th, .listings-table td {
+    border-color: #666;
+  }
+  
+  h2 {
+    margin-bottom: 10px;
+  }
+  

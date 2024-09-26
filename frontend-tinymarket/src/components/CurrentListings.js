@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { callReadOnlyFunction } from '@stacks/transactions'; // Import the necessary library functions
 import { StacksTestnet } from "@stacks/network";
-import { uintCV, addressFromHashMode } from "@stacks/transactions";
-import { userSession } from "./ConnectWallet";
+import { uintCV } from "@stacks/transactions";
+import { userSession } from "./ConnectWallet"; 
+import './CurrentListings.css';
 
 const CurrentListings = ({ contractAddress, contractName }) => {
   const [listings, setListings] = useState([]);
@@ -10,7 +11,6 @@ const CurrentListings = ({ contractAddress, contractName }) => {
   const [error, setError] = useState(null);
   const stxAddress = userSession.loadUserData().profile.stxAddress.mainnet;
 
-  // Function to get the last listing ID
   const fetchLastListingId = async () => {
     try {
       const options = {
@@ -23,14 +23,13 @@ const CurrentListings = ({ contractAddress, contractName }) => {
       };
       
       const result = await callReadOnlyFunction(options);
-      return Number(result.value.value); // Get the number from the result
+      return Number(result.value.value);
     } catch (error) {
       console.error('Error fetching last listing ID:', error);
       setError(error.message);
     }
   };
 
-  // Function to fetch individual listing by ID
   const fetchListing = async (listingId) => {
     try {
       const options = {
@@ -50,7 +49,6 @@ const CurrentListings = ({ contractAddress, contractName }) => {
     }
   };
 
-  // Fetch all active listings
   const fetchAllListings = async () => {
     setLoading(true);
     setError(null); 
@@ -77,14 +75,9 @@ const CurrentListings = ({ contractAddress, contractName }) => {
               makerAddress: makerHash,
               expiry: expiry ? expiry.toString() : 'Unknown', 
             });
-          } else {
-            console.warn(`Invalid listing data for ID ${id}`);
           }
-        } else {
-          console.warn(`No listing found for ID ${id}`);
         }
       }
-      console.log('Fetched Listings:', fetchedListings);
       setListings(fetchedListings);
     } catch (error) {
       console.error('Error fetching all listings:', error);
@@ -107,18 +100,31 @@ const CurrentListings = ({ contractAddress, contractName }) => {
   }
 
   return (
-    <div>
+    <div className="listings-container">
       <h2>Current NFT Listings</h2>
       {listings.length === 0 ? (
         <p>No listings available</p>
       ) : (
-        <ul>
-          {listings.map((listing, index) => (
-            <li key={index}>
-              Listing ID: {listing.listingId} - Token ID: {listing.tokenId} - Price: {listing.price} STX - Maker: {listing.makerAddress} - Expiry: {listing.expiry}
-            </li>
-          ))}
-        </ul>
+        <table className="listings-table">
+          <thead>
+            <tr>
+              <th>Listing ID</th>
+              <th>Token ID</th>
+              <th>Price (STX)</th>
+              <th>Expiry</th>
+            </tr>
+          </thead>
+          <tbody>
+            {listings.map((listing, index) => (
+              <tr key={index}>
+                <td>{listing.listingId}</td>
+                <td>{listing.tokenId}</td>
+                <td>{listing.price}</td>
+                <td>{listing.expiry}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );
