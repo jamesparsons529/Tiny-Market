@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import Mint from '../Mint';
-import { userSession } from '../ConnectWallet'; // Assuming this is where userSession is managed
+import { userSession } from '../ConnectWallet'; 
+import CurrentListingsAssetCard from '../CurrentListingsAssetCard';
 
 function Home() {
-  const isUserSignedIn = userSession.isUserSignedIn(); // Check if the user is signed in
+  const isUserSignedIn = userSession.isUserSignedIn(); 
 
   return (
     <main>
@@ -12,10 +13,11 @@ function Home() {
       <div>
         <div>
           {isUserSignedIn ? (
-            // Display the Mint component if the user is signed in
-            <Mint />
+            <>
+              <Mint />
+              <CurrentListingsAssetCard />
+            </>
           ) : (
-            // Show a message or an alternative component when not signed in
             <p>Please sign in to mint an NFT.</p>
           )}
         </div>
