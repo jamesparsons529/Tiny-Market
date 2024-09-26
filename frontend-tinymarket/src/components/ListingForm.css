@@ -1,0 +1,61 @@
+/* ListingForm.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+  }
+  
+  .nft-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 80%;
+  }
+  
+  .nft-image {
+    flex: 1;
+    max-width: 300px;
+  }
+  
+  .selected-nft-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .nft-form {
+    flex: 2;
+    margin-left: 20px;
+  }
+  
+  .nft-form h2 {
+    margin-bottom: 10px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #00ff88;
+    border: none;
+    color: black;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  

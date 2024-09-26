@@ -9,6 +9,7 @@ import {
   PostConditionMode
 } from "@stacks/transactions";
 import { userSession } from "./ConnectWallet";
+import './ListingForm.css'; // Add custom CSS
 
 const ListingForm = () => {
   const { doContractCall } = useConnect();
@@ -43,7 +44,6 @@ const ListingForm = () => {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        console.log("Fetched data:", data); // Debugging
         setBlockHeight(data.stacks_tip_height);
       } catch (error) {
         console.error("Error fetching block height:", error);
@@ -52,11 +52,10 @@ const ListingForm = () => {
 
     fetchBlockHeight(); // Initial fetch
     const intervalId = setInterval(() => {
-      console.log("Fetching block height..."); // Debugging
       fetchBlockHeight();
     }, 60000); // Fetch every 60 seconds
 
-    return () => clearInterval(intervalId); // Clean up on unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
@@ -66,6 +65,11 @@ const ListingForm = () => {
       fetchNFTs(principal);
     }
   }, []);
+
+  const handleNftSelection = (e) => {
+    const selectedTokenId = e.target.value;
+    setTokenId(selectedTokenId);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,10 +84,6 @@ const ListingForm = () => {
       window.alert("Expiry date must be greater than the current block height by at least 50.");
       return;
     }
-
-    console.log("Token ID:", tokenId);
-    console.log("Expiry:", expiry);
-    console.log("Price:", price);
 
     doContractCall({
       network: new StacksTestnet(),
@@ -101,14 +101,12 @@ const ListingForm = () => {
       ],
       postConditionMode: PostConditionMode.Allow,
       onFinish: (data) => {
-        console.log("onFinish:", data);
         window.alert("Asset listed successfully!");
         setTokenId('');
         setExpiry('');
         setPrice('');
       },
       onCancel: () => {
-        console.log("onCancel:", "Transaction was canceled");
         window.alert("Asset listing failed.");
       },
       onError: (error) => {
@@ -123,7 +121,13 @@ const ListingForm = () => {
       <h1>Sell or Swap</h1>
       <div className="nft-details">
         <div className="nft-image">
-          <img src="stacks.png" alt="NFT Image" id="nftImage"/>
+          {tokenId && (
+            <img
+              src={"/images/nft-image.png"}
+              alt="NFT Image"
+              className="selected-nft-image"
+            />
+          )}
         </div>
         <div className="nft-form">
           <h2 id="nftName">NFT Name</h2>
@@ -138,7 +142,7 @@ const ListingForm = () => {
                   id="token-id"
                   name="token-id"
                   value={tokenId}
-                  onChange={(e) => setTokenId(e.target.value)}
+                  onChange={handleNftSelection}
                   required
                 >
                   <option value="">Select an NFT</option>
@@ -152,7 +156,6 @@ const ListingForm = () => {
                     );
                   })}
                 </select>
-
               )}
             </div>
             <div className="form-group">
