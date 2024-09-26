@@ -9,16 +9,17 @@ function Home() {
   return (
     <main>
       <h1>Home</h1>
-      <p>Welcome to the home page</p>
+      
       <div>
         <div>
           {isUserSignedIn ? (
             <>
+              <p>Welcome to the home page</p>
               <Mint />
               <CurrentListingsAssetCard />
             </>
           ) : (
-            <p>Please sign in to mint an NFT.</p>
+            <p>Please sign in to mint an NFT or use the marketplace.</p>
           )}
         </div>
       </div>

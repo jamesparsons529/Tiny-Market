@@ -7,8 +7,7 @@ import ListingForm from '../ListingForm';
 function AssetSell() {
   return (
     <main>
-        
-        <div>
+        <div className='listing-form'>
             <ListingForm />
         </div>
     </main>
