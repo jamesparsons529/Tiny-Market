@@ -3,7 +3,7 @@ import { callReadOnlyFunction } from '@stacks/transactions';
 import { StacksTestnet } from "@stacks/network";
 import { uintCV } from "@stacks/transactions";
 import { userSession } from "./ConnectWallet"; 
-import './CurrentListingsAssetCard.css'; 
+import './css/CurrentListingsAssetCard.css'; 
 
 const CurrentListingsAssetCard = ({ contractAddress, contractName }) => {
   const [listings, setListings] = useState([]);
@@ -101,8 +101,8 @@ const CurrentListingsAssetCard = ({ contractAddress, contractName }) => {
   }
 
   return (
-    <div className="listings-container">
-      <h2>Current Testnet NFT Listings</h2>
+    <div className="listings-container-asset-card">
+      <h2 class = "listings-title">Current Testnet NFT Listings</h2>
       {listings.length === 0 ? (
         <p>No listings available</p>
       ) : (
@@ -111,10 +111,11 @@ const CurrentListingsAssetCard = ({ contractAddress, contractName }) => {
             <div className="card" key={index}>
               <img src="/images/nft-image.png" alt="NFT" className="nft-image" />
               <div className="card-details">
-                <p className="nft-contract">{listing.contractAddress}</p>
+                <p className="nft-contract">{"Stacksies"}</p>
                 <p className="nft-description">NFT Contract:</p>
                 <p className="nft-contract-small">{listing.contractAddress}</p>
                 <p className="token-id">Token ID: {listing.tokenId}</p>
+                <p className="nft-price">Price: {listing.price} STX</p>
                 <div className="actions">
                   <button className="buy-button">Buy Now</button>
                   <button className="swap-button">Swap</button>

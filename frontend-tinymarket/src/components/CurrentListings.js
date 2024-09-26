@@ -3,7 +3,7 @@ import { callReadOnlyFunction } from '@stacks/transactions';
 import { StacksTestnet } from "@stacks/network";
 import { uintCV } from "@stacks/transactions";
 import { userSession } from "./ConnectWallet"; 
-import './CurrentListings.css';
+import './css/CurrentListings.css';
 
 const CurrentListings = ({ contractAddress, contractName }) => {
   const [listings, setListings] = useState([]);

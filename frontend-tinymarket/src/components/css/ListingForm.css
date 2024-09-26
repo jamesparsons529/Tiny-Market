@@ -4,6 +4,24 @@
     flex-direction: column;
     align-items: center;
     color: white;
+
+    background-color: #222;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    padding: 30px;
+  }
+
+  .listings-title {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #00ff88;
+  }
+
+  .listings-subtitle {
+    font-size: 24px;
+    margin-bottom: 20px;
   }
   
   .nft-details {
@@ -49,6 +67,10 @@
     border: 1px solid #ccc;
     border-radius: 4px;
   }
+
+  .submit {
+    background-color: #00ff88;
+  }
   
   button {
     padding: 10px 20px;
@@ -58,4 +80,5 @@
     cursor: pointer;
     border-radius: 4px;
   }
+  
   

@@ -33,7 +33,6 @@ main {
   padding-top: 10vw;
   flex: 1;
 }
-
 /* ---- NAV BAR ----  */
 nav {
   display: flex;
@@ -47,11 +46,17 @@ nav {
   top: 0;
   left: 0;
   z-index: 1000;
-  height: 5vw;
+  height: 85px; 
   color: #ffffff;
   font-size: 18px;
   font-weight: 500;
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+nav:hover {
+  background-color: #222326;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); 
 }
 
 nav .nav-left {
@@ -67,7 +72,8 @@ nav .nav-center {
 nav .nav-menu {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  justify-content: flex-end;
+  gap: 2rem;
   width: 33%;
 }
 
@@ -76,15 +82,58 @@ nav a {
   font-size: 16px;
   font-weight: 400;
   text-decoration: none;
+  position: relative; 
+  transition: color 0.3s ease;
 }
 
 nav a:hover {
-  color: #b0b0b0;
+  color: #00ff88; 
 }
 
-/* ---- HOME PAGE ----  */
-#home-container {
-  padding: 0 20rem;
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #00ff88; /* Green underline */
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%; /* Underline expands on hover */
+}
+
+nav .nav-menu a {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+nav .logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #00ff88; /* Logo color */
+}
+
+nav .logo:hover {
+  color: #ffffff; /* Inverse hover effect for the logo */
+}
+
+nav .button {
+  background-color: #00ff88;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+nav .button:hover {
+  background-color: #00cc6e; /* Darker green */
+  transform: translateY(-2px); /* Slight pop-up effect */
 }
 
 
@@ -167,88 +216,6 @@ button {
       display: flex !important;
   }
 } 
-
-/*----PROFILE PAGE ----*/
-.profile-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 4vw;
-}
-
-.profile-info {
-  display: flex;
-  align-items: center;
-  flex-direction: column; 
-}
-
-.profile-pic {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.profile-pic:hover {
-  transform: scale(1.05);
-}
-
-.profile-actions {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 50px;
-  margin-top: 2rem;
-}
-
-.profile-actions button {
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  min-width: 150px;  
-}
-
-.profile-actions button:hover {
-  transform: translateY(-2px);
-}
-
-.nft-gallery {
-  text-align: center;
-  margin-top: 3rem;
-}
-
-.nft-gallery h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-}
-
-.profile-assets {
-  width: 100%;
-  padding: 0 20rem;
-}
-
-.profile-assets h1 {
-  font-size: 24px;
-  margin-bottom: 1rem;
-}
-
-.profile-assets .asset-card {
-  margin-top: 0;
-}
-
-.nft-gallery {
-  text-align: center;
-  margin-top: 3rem;
-}
-
-.nft-gallery h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-}
 
 /*----Transaction History PAGE ----*/
 .transaction-history-container {

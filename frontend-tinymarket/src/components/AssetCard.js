@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { UserSession } from "@stacks/connect"; 
 import { StacksMainnet } from '@stacks/network';
 import { callReadOnlyFunction, uintCV } from '@stacks/transactions';
-import './CurrentListingsAssetCard.css'; 
+import './css/AssetCard.css'; 
 export const userSession = new UserSession();
 
 function AssetCard() {

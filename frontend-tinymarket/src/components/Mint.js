@@ -7,7 +7,7 @@ import {
   PostConditionMode
 } from "@stacks/transactions";
 import { userSession } from "./ConnectWallet";
-import "./Mint.css";
+import "./css/Mint.css";
 
 const Mint = () => {
   const { doContractCall } = useConnect();

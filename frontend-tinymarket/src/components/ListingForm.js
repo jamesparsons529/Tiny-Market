@@ -9,7 +9,7 @@ import {
   PostConditionMode
 } from "@stacks/transactions";
 import { userSession } from "./ConnectWallet";
-import './ListingForm.css'; // Add custom CSS
+import './css/ListingForm.css';
 
 const ListingForm = () => {
   const { doContractCall } = useConnect();
@@ -117,73 +117,76 @@ const ListingForm = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Sell or Swap</h1>
-      <div className="nft-details">
-        <div className="nft-image">
-          {tokenId && (
-            <img
-              src={"/images/nft-image.png"}
-              alt="NFT Image"
-              className="selected-nft-image"
-            />
-          )}
-        </div>
-        <div className="nft-form">
-          <h2 id="nftName">NFT Name</h2>
-          <p>Current Block Height: {blockHeight !== null ? blockHeight : "Loading..."}</p>
-          <form id="sellForm" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="token-id">Select NFT Token Id:</label>
-              {loadingNfts ? (
-                <p>Loading NFTs...</p>
-              ) : (
-                <select
-                  id="token-id"
-                  name="token-id"
-                  value={tokenId}
-                  onChange={handleNftSelection}
+    <div className="listing-form">
+      <h1 class = "listings-title">Sell or Swap</h1>
+      <div className="container">
+        <h2 class = "listings-subtitle">List your NFT for sale or swap</h2>
+        <div className="nft-details">
+          <div className="nft-image">
+            {tokenId && (
+              <img
+                src={"/images/nft-image.png"}
+                alt="NFT Image"
+                className="selected-nft-image"
+              />
+            )}
+          </div>
+          <div className="nft-form">
+            <h2 id="nftName">NFT Name</h2>
+            <p>Current Block Height: {blockHeight !== null ? blockHeight : "Loading..."}</p>
+            <form id="sellForm" onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="token-id">Select NFT Token Id:</label>
+                {loadingNfts ? (
+                  <p>Loading NFTs...</p>
+                ) : (
+                  <select
+                    id="token-id"
+                    name="token-id"
+                    value={tokenId}
+                    onChange={handleNftSelection}
+                    required
+                  >
+                    <option value="">Select an NFT</option>
+                    {nfts.map((nft) => {
+                      const tokenIdStr = nft.value.repr.replace(/[^\d]/g, '');
+                      const tokenIdInt = parseInt(tokenIdStr, 10);
+                      return (
+                        <option key={tokenIdStr} value={tokenIdInt}>
+                          Token ID: {tokenIdInt}
+                        </option>
+                      );
+                    })}
+                  </select>
+                )}
+              </div>
+              <div className="form-group">
+                <label htmlFor="price">Sell Price (in STX)</label>
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  placeholder="Enter price in STX"
                   required
-                >
-                  <option value="">Select an NFT</option>
-                  {nfts.map((nft) => {
-                    const tokenIdStr = nft.value.repr.replace(/[^\d]/g, '');
-                    const tokenIdInt = parseInt(tokenIdStr, 10);
-                    return (
-                      <option key={tokenIdStr} value={tokenIdInt}>
-                        Token ID: {tokenIdInt}
-                      </option>
-                    );
-                  })}
-                </select>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="price">Sell Price (in STX)</label>
-              <input
-                type="number"
-                id="price"
-                name="price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                placeholder="Enter price in STX"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="expiry">Expiry Height</label>
-              <input 
-                type="number" 
-                id="expiry" 
-                name="expiry"
-                value={expiry}
-                onChange={(e) => setExpiry(e.target.value)}
-                placeholder="Enter expiry height"
-                required
-              />
-            </div>
-            <button type="submit">Continue</button>
-          </form>
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="expiry">Expiry Height</label>
+                <input 
+                  type="number" 
+                  id="expiry" 
+                  name="expiry"
+                  value={expiry}
+                  onChange={(e) => setExpiry(e.target.value)}
+                  placeholder="Enter expiry height"
+                  required
+                />
+              </div>
+              <button class = "submit" type="submit">Continue</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

@@ -2,22 +2,20 @@ import React, { useState } from 'react';
 import { UserSession } from "@stacks/connect";
 import AssetCard from '../AssetCard';
 import TestNetAssetCard from '../TestNetAssetCard';
+import '../css/profile.css';
 export const userSession = new UserSession();
 
 function Profile() {
-  // Initialise the state for the profile
   const [profile, setProfile] = useState({
     name: "John Smith",
     profileImage: null, 
   });
 
-  // Function to handle file input change (uploading profile image)
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
-        // Set profile image to the uploaded file
         setProfile({ ...profile, profileImage: event.target.result });
       };
       reader.readAsDataURL(file);
@@ -29,7 +27,13 @@ function Profile() {
   };
 
   return (
-    <main>
+    <main className="profile-page">
+      {/* Header Section */}
+      <div className="profile-header">
+        <h1>Profile</h1>
+        <p>Manage your profile and view your NFTs</p>
+      </div>
+
       <section className="profile-container">
         <div className="profile-info">
           <img
@@ -52,18 +56,17 @@ function Profile() {
         </div>
 
         <div className="profile-actions">
-          <button>My Transactions</button>
-          <button>Edit Profile</button>
+          <button className="action-button">My Transactions</button>
+          <button className="action-button">Edit Profile</button>
         </div>
 
-        <div style={{ marginBottom: '20px' }}>
+        <div className="asset-section">
           <TestNetAssetCard />
         </div>
 
-        <div style={{ marginTop: '20px' }}>
+        <div className="asset-section">
           <AssetCard />
         </div>
-        
       </section>
     </main>
   );

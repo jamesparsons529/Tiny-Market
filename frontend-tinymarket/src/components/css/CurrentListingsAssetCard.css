@@ -1,10 +1,16 @@
-.listings-container {
+  .listings-container-asset-card {
     padding: 20px;
-    background-color: #333;
     color: #fff;
     font-family: Arial, sans-serif;
-    text-align: center; 
+    text-align: center;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow like the mint button */
+    margin-bottom: 50px;
+    width: 90%;
+    text-align: center;
   }
+
   
   .listing-cards {
     display: flex;
@@ -28,6 +34,12 @@
     object-fit: cover;
   }
   
+  .listings-title {
+    font-size: 30x;
+    margin-bottom: 20px;
+    color: #00ff88;
+  }
+
   .card-details {
     padding: 15px;
     text-align: center;
@@ -45,7 +57,7 @@
   }
   
   .nft-description {
-    font-size: 12px;
+    font-size: 16px;
     color: #ccc;
   }
   
@@ -55,6 +67,12 @@
     word-wrap: break-word;
   }
   
+  .nft-price {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #00ff88;
+    font-weight: bold;
+  }
   .token-id {
     font-size: 16px;
     margin: 10px 0;

@@ -1,8 +1,8 @@
 .listings-container {
   padding: 20px;
-  background-color: #333;
   color: #fff;
   font-family: Arial, sans-serif;
+  text-align: center; 
 }
 
 .listings-table {

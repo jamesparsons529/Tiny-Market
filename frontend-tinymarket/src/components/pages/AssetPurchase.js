@@ -1,7 +1,7 @@
 import React from 'react';
 import PurchaseForm from '../purchaseForm';
 import CurrentListings from '../CurrentListings';
-import './AssetPurchase.css'; // 
+import '../css/AssetPurchase.css';
 
 function AssetPurchase() {
   return (
