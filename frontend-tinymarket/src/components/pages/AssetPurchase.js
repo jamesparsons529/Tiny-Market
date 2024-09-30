@@ -7,7 +7,7 @@ function AssetPurchase() {
   return (
     <main className="asset-purchase-container">
       <div className="asset-purchase-header">
-        <h1>Asset Purchase</h1>
+        <h1>Fulfil Purchase</h1>
         <p>Buy an asset from the TinyMarket</p>
       </div>
       <div className="purchase-form-container">

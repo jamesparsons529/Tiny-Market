@@ -78,7 +78,7 @@ const PurchaseForm = () => {
 
   return (
     <div className="purchase-container">
-      <h1 className="purchase-title">Fulfill NFT Listing</h1>
+      <h1 className="purchase-title">Fulfill NFT Purchase</h1>
       <p className="block-height">Current Block Height: {blockHeight !== null ? blockHeight : "Loading..."}</p>
       <form id="fulfillForm" className="purchase-form" onSubmit={handleSubmit}>
         <div className="form-group">
