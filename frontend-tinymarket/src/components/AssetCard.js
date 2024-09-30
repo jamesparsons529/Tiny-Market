@@ -61,6 +61,7 @@ function AssetCard() {
                   }
                   const data = await response.json();
                   const fetchedImageUrl = data.image;
+                  console.log(fetchedImageUrl)
                   const imageUrl = convertIpfsUrl(fetchedImageUrl);
                   return imageUrl;
                 } catch (error) {

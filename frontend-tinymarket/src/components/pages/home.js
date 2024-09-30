@@ -1,5 +1,6 @@
 import React from 'react';
-import Mint from '../Mint';
+import MintMonkey from '../MintMonkey';
+import MintTiger from '../MintTiger';
 import { userSession } from '../ConnectWallet'; 
 import CurrentListingsAssetCard from '../CurrentListingsAssetCard';
 import '../css/home.css'; 
@@ -19,7 +20,8 @@ function Home() {
       {isUserSignedIn ? (
         <>
           <div className="mint-container">
-            <Mint />
+            <MintMonkey />
+            <MintTiger />
           </div>
           <CurrentListingsAssetCard />
         </>

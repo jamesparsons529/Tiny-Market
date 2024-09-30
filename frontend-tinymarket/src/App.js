@@ -14,8 +14,7 @@ import transactionHistory from './components/pages/transactionHistory.js';
 
 // CONTRACT FUNCTIONS
 import ConnectWallet from "./components/ConnectWallet";
-import Mint from "./components/Mint";
-import { userSession } from "./components/ConnectWallet"; // Assuming userSession is managed here
+import { userSession } from "./components/ConnectWallet";
 
 // ProtectedRoute Component
 function ProtectedRoute({ children }) {
@@ -53,7 +52,6 @@ function App() {
         {/* Conditional rendering based on initialView state */}
         {initialView ? (
           <header className="App-header">
-            <Mint />
           </header>
         ) : (
           <Routes>
