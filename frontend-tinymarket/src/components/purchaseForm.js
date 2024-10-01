@@ -7,7 +7,7 @@ import {
   uintCV, 
   PostConditionMode 
 } from "@stacks/transactions";
-import { userSession } from "./ConnectWallet";
+
 
 const PurchaseForm = () => {
   const { doContractCall } = useConnect();
@@ -76,12 +76,12 @@ const PurchaseForm = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Fulfill NFT Listing</h1>
-      <p>Current Block Height: {blockHeight !== null ? blockHeight : "Loading..."}</p>
-      <form id="fulfillForm" onSubmit={handleSubmit}>
+    <div className="purchase-container">
+      <h1 className="purchase-title">Fulfill NFT Purchase</h1>
+      <p className="block-height">Current Block Height: {blockHeight !== null ? blockHeight : "Loading..."}</p>
+      <form id="fulfillForm" className="purchase-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="listing-id">Listing ID:</label>
+          <label htmlFor="listing-id" className="form-label">Listing ID:</label>
           <input 
             type="number" 
             id="listing-id" 
@@ -89,10 +89,11 @@ const PurchaseForm = () => {
             value={listingId}
             onChange={(e) => setListingId(e.target.value)}
             placeholder="Enter Listing ID"
+            className="form-input"
             required
           />
         </div> 
-        <button type="submit">Fulfill Listing</button>
+        <button type="submit" className="submit-button">Fulfill Listing</button>
       </form>
     </div>
   );

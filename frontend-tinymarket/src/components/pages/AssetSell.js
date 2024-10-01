@@ -1,5 +1,4 @@
 import React from 'react';
-import Mint from '../Mint';
 
 import ListingForm from '../ListingForm';
 
@@ -7,8 +6,7 @@ import ListingForm from '../ListingForm';
 function AssetSell() {
   return (
     <main>
-        
-        <div>
+        <div className='listing-form'>
             <ListingForm />
         </div>
     </main>

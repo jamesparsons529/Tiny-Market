@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
-import {UserSession } from "@stacks/connect";
+import { UserSession } from "@stacks/connect";
 import AssetCard from '../AssetCard';
-import TestNetNFTSList from '../TestNetNFTSList';
+import TestNetAssetCard from '../TestNetAssetCard';
+import '../css/profile.css';
 export const userSession = new UserSession();
 
-
 function Profile() {
-  // Initialise the state for the profile
   const [profile, setProfile] = useState({
     name: "John Smith",
-    profileImage: null, // Initially no profile image
+    profileImage: null, 
   });
 
-  // Function to handle file input change (uploading profile image)
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
-        // Set profile image to the uploaded file
         setProfile({ ...profile, profileImage: event.target.result });
       };
       reader.readAsDataURL(file);
@@ -28,43 +25,44 @@ function Profile() {
   const triggerFileInput = () => {
     document.getElementById("profileImageInput").click();
   };
+
   return (
-    <main>
+    <main className="profile-page">
+      {/* Header Section */}
+      <div className="profile-header">
+        <h1>Profile</h1>
+        <p>Manage your profile and view your NFTs</p>
+      </div>
+
       <section className="profile-container">
         <div className="profile-info">
           <img
-          //via.placeholder.com is a website that allows for images to be temperarily uploaded
-            src={profile.profileImage || "https://via.placeholder.com/150"} 
+            src={profile.profileImage || "https://via.placeholder.com/150"}
             alt="Profile"
             className="profile-pic"
             onClick={triggerFileInput}
-            style={{cursor: 'pointer'}}
+            style={{ cursor: 'pointer' }}
           />
           <h1>{profile.name}</h1>
-          <p>Wallet Address: {userSession.loadUserData().profile.stxAddress.mainnet}</p>
-          <p>Available funds: 2.5 ETH</p>
+          <p>Mainnet Wallet Address: {userSession.loadUserData().profile.stxAddress.mainnet}</p>
+          <p>Testnet Wallet Address: {userSession.loadUserData().profile.stxAddress.testnet}</p>
           <input 
             type="file" 
             accept="image/*" 
-            id= "profileImageInput"
-            style={{ display:'none'}}
-            onChange={handleImageUpload} 
+            id="profileImageInput"
+            style={{ display: 'none' }}
+            onChange={handleImageUpload}
           />
         </div>
-        <div className="profile-actions">
-          <button>My Transactions</button>
-          <button>Edit Profile</button>
+        
+        <div className="asset-section">
+          <TestNetAssetCard />
         </div>
-        <div>
-          <h1>My Testnet Assets</h1>
-          <TestNetNFTSList /> 
-        </div>
-        <div>
-          <h1>My Mainnet Assets</h1>
+
+        <div className="asset-section">
           <AssetCard />
         </div>
-        
-      </section>      
+      </section>
     </main>
   );
 }

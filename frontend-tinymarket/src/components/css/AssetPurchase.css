@@ -1,0 +1,87 @@
+.asset-purchase-container {
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .asset-purchase-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .asset-purchase-header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #00ff88;
+  }
+  
+  .asset-purchase-header p {
+    font-size: 18px;
+    color: #ccc;
+  }
+  
+  .purchase-form-container,
+  .current-listings-container {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 50px;
+    width: 80%;
+    max-width: 900px;
+    text-align: center;
+  }
+  
+  .current-listings-container h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #00ff88;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #444;
+  }
+  
+  th {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  td {
+    color: #ddd;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #222;
+  }
+  
+  tr:hover {
+    background-color: #333;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #00FF00;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #00CC00;
+  }
+  

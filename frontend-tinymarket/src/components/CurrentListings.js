@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { callReadOnlyFunction } from '@stacks/transactions'; // Import the necessary library functions
+import { callReadOnlyFunction } from '@stacks/transactions';
 import { StacksTestnet } from "@stacks/network";
 import { uintCV } from "@stacks/transactions";
 import { userSession } from "./ConnectWallet"; 
-import './CurrentListings.css';
+import './css/CurrentListings.css';
 
 const CurrentListings = ({ contractAddress, contractName }) => {
   const [listings, setListings] = useState([]);

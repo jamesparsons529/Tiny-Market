@@ -9,6 +9,7 @@ import {
   PostConditionMode
 } from "@stacks/transactions";
 import { userSession } from "./ConnectWallet";
+import './css/ListingForm.css';
 
 const ListingForm = () => {
   const { doContractCall } = useConnect();
@@ -43,7 +44,6 @@ const ListingForm = () => {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        console.log("Fetched data:", data); // Debugging
         setBlockHeight(data.stacks_tip_height);
       } catch (error) {
         console.error("Error fetching block height:", error);
@@ -52,11 +52,10 @@ const ListingForm = () => {
 
     fetchBlockHeight(); // Initial fetch
     const intervalId = setInterval(() => {
-      console.log("Fetching block height..."); // Debugging
       fetchBlockHeight();
     }, 60000); // Fetch every 60 seconds
 
-    return () => clearInterval(intervalId); // Clean up on unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
@@ -66,6 +65,11 @@ const ListingForm = () => {
       fetchNFTs(principal);
     }
   }, []);
+
+  const handleNftSelection = (e) => {
+    const selectedTokenId = e.target.value;
+    setTokenId(selectedTokenId);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,10 +84,6 @@ const ListingForm = () => {
       window.alert("Expiry date must be greater than the current block height by at least 50.");
       return;
     }
-
-    console.log("Token ID:", tokenId);
-    console.log("Expiry:", expiry);
-    console.log("Price:", price);
 
     doContractCall({
       network: new StacksTestnet(),
@@ -101,14 +101,12 @@ const ListingForm = () => {
       ],
       postConditionMode: PostConditionMode.Allow,
       onFinish: (data) => {
-        console.log("onFinish:", data);
         window.alert("Asset listed successfully!");
         setTokenId('');
         setExpiry('');
         setPrice('');
       },
       onCancel: () => {
-        console.log("onCancel:", "Transaction was canceled");
         window.alert("Asset listing failed.");
       },
       onError: (error) => {
@@ -119,68 +117,76 @@ const ListingForm = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Sell or Swap</h1>
-      <div className="nft-details">
-        <div className="nft-image">
-          <img src="stacks.png" alt="NFT Image" id="nftImage"/>
-        </div>
-        <div className="nft-form">
-          <h2 id="nftName">NFT Name</h2>
-          <p>Current Block Height: {blockHeight !== null ? blockHeight : "Loading..."}</p>
-          <form id="sellForm" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="token-id">Select NFT Token Id:</label>
-              {loadingNfts ? (
-                <p>Loading NFTs...</p>
-              ) : (
-                <select
-                  id="token-id"
-                  name="token-id"
-                  value={tokenId}
-                  onChange={(e) => setTokenId(e.target.value)}
+    <div className="listing-form">
+      <h1 class = "listings-title">Sell or Swap</h1>
+      <div className="container">
+        <h2 class = "listings-subtitle">List your NFT for sale or swap</h2>
+        <div className="nft-details">
+          <div className="nft-image">
+            {tokenId && (
+              <img
+                src={"/images/nft-image.png"}
+                alt="NFT Image"
+                className="selected-nft-image"
+              />
+            )}
+          </div>
+          <div className="nft-form">
+            <h2 id="nftName">NFT Name</h2>
+            <p>Current Block Height: {blockHeight !== null ? blockHeight : "Loading..."}</p>
+            <form id="sellForm" onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="token-id">Select NFT Token Id:</label>
+                {loadingNfts ? (
+                  <p>Loading NFTs...</p>
+                ) : (
+                  <select
+                    id="token-id"
+                    name="token-id"
+                    value={tokenId}
+                    onChange={handleNftSelection}
+                    required
+                  >
+                    <option value="">Select an NFT</option>
+                    {nfts.map((nft) => {
+                      const tokenIdStr = nft.value.repr.replace(/[^\d]/g, '');
+                      const tokenIdInt = parseInt(tokenIdStr, 10);
+                      return (
+                        <option key={tokenIdStr} value={tokenIdInt}>
+                          Token ID: {tokenIdInt}
+                        </option>
+                      );
+                    })}
+                  </select>
+                )}
+              </div>
+              <div className="form-group">
+                <label htmlFor="price">Sell Price (in STX)</label>
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  placeholder="Enter price in STX"
                   required
-                >
-                  <option value="">Select an NFT</option>
-                  {nfts.map((nft) => {
-                    const tokenIdStr = nft.value.repr.replace(/[^\d]/g, '');
-                    const tokenIdInt = parseInt(tokenIdStr, 10);
-                    return (
-                      <option key={tokenIdStr} value={tokenIdInt}>
-                        Token ID: {tokenIdInt}
-                      </option>
-                    );
-                  })}
-                </select>
-
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="price">Sell Price (in STX)</label>
-              <input
-                type="number"
-                id="price"
-                name="price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                placeholder="Enter price in STX"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="expiry">Expiry Height</label>
-              <input 
-                type="number" 
-                id="expiry" 
-                name="expiry"
-                value={expiry}
-                onChange={(e) => setExpiry(e.target.value)}
-                placeholder="Enter expiry height"
-                required
-              />
-            </div>
-            <button type="submit">Continue</button>
-          </form>
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="expiry">Expiry Height</label>
+                <input 
+                  type="number" 
+                  id="expiry" 
+                  name="expiry"
+                  value={expiry}
+                  onChange={(e) => setExpiry(e.target.value)}
+                  placeholder="Enter expiry height"
+                  required
+                />
+              </div>
+              <button class = "submit" type="submit">Continue</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
