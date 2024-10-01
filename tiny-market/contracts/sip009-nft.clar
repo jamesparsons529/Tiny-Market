@@ -1,3 +1,4 @@
+
 ;; title: sip009-nft
 ;; version:
 ;; summary:
@@ -10,22 +11,26 @@
 
 ;; token definitions
 ;;
-(define-non-fungible-token moody-monkey uint) ;; Defines new NFT
+(define-non-fungible-token stacksies uint) ;; Defines new NFT
 
 ;; constants
 ;;
-(define-constant contract-owner 'ST1NWPSRC02Z9A20RHSBGDEDG9H8CHS6ENJ2N3TTH) ;; Contract owner's principal
-(define-constant mint-cost u500000) ;; 0.5 STX in microSTX (1 STX = 1,000,000 microSTX)
+(define-constant contract-owner tx-sender)
 
-;; error codes
 (define-constant err-owner-only (err u100)) 
 (define-constant err-token-id-failure (err u101))
 (define-constant err-not-token-owner (err u102)) 
 
 ;; data vars
+;;323631
 (define-data-var last-token-id uint u0) ;; highest token ID
+(define-constant MINT_PRICE u50000000)
 
-(define-data-var token-hash (string-ascii 100) "QmZK8gsvJiKPKi2zBVmhJgx8Lfx8LH8f1xpU4mEwYqAfLu") ;; IPFS hash
+(define-data-var base-uri (string-ascii 100) "storageapi.fleek.co/87ae85d3-6af5-4525-94fc-620cfc39f293-bucket/nft-example/another_ape.json") ;; ipfs://
+
+
+;; data maps
+;;
 
 ;; read only functions
 ;;
@@ -34,11 +39,12 @@
 )
 
 (define-read-only (get-owner (token-id uint)) 
-    (ok (nft-get-owner? moody-monkey token-id))
+    (ok (nft-get-owner? stacksies token-id))
 )
 
 (define-read-only (get-token-uri (id uint))
-    (ok (some (var-get token-hash)))
+ ;;(concat var-get base-uri "{id}" ".json")
+  (ok (some (var-get base-uri)))
 )
 
 ;; public functions
@@ -46,24 +52,21 @@
 (define-public (transfer (token-id uint) (sender principal) (recipient principal)) ;; Checks if sender is tx-sender
     (begin 
         (asserts! (is-eq tx-sender sender) err-not-token-owner)
-        (nft-transfer? moody-monkey token-id sender recipient)
+        (nft-transfer? stacksies token-id sender recipient)
     )
 ) 
 
 (define-public (mint (recipient principal))
-    (let (
+    (let 
+        (
             (token-id (+ (var-get last-token-id) u1)) ;; sets new token-id to last-token-id + 1
         )
-        ;; Ensure that the sender is paying the required minting fee
-        (try! (stx-transfer? mint-cost tx-sender contract-owner))
-        
-        ;; Mint the NFT to the recipient
-        (try! (nft-mint? moody-monkey token-id recipient)) 
-        
-        ;; Update the last token id
-        (var-set last-token-id token-id)
-        
-        ;; Return the newly minted token ID
+        (try! (nft-mint? stacksies token-id recipient)) ;; attempts to mint a new NFT
+        (var-set last-token-id token-id) ;; sets last-token-id to token-id
         (ok token-id)
     )
 )
+
+;; private functions
+;;
+

@@ -28,17 +28,24 @@ plan:
     - id: 1
       transactions:
         - contract-publish:
-            contract-name: moody-monkey
+            contract-name: sip009-nft
             expected-sender: ST1NWPSRC02Z9A20RHSBGDEDG9H8CHS6ENJ2N3TTH
-            cost: 19800
-            path: "contracts\\moody-monkey.clar"
+            cost: 163274923
+            path: "contracts\\sip009-nft.clar"
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
-            contract-name: sleepy-stripes
+            contract-name: sip010-token
             expected-sender: ST1NWPSRC02Z9A20RHSBGDEDG9H8CHS6ENJ2N3TTH
-            cost: 19890
-            path: "contracts\\sleepy-stripes.clar"
+            cost: 163117777
+            path: "contracts\\sip010-token.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: tiny-market
+            expected-sender: ST1NWPSRC02Z9A20RHSBGDEDG9H8CHS6ENJ2N3TTH
+            cost: 164846385
+            path: "contracts\\tiny-market.clar"
             anchor-block-only: true
             clarity-version: 2
       epoch: "2.5"

@@ -9,7 +9,7 @@ import {
 import { userSession } from "./ConnectWallet";
 import "./css/Mint.css";
 
-const MintMoney = () => {
+const Mint = () => {
   const { doContractCall } = useConnect();
   const [minted, setMinted] = useState(false);
 
@@ -20,7 +20,7 @@ const MintMoney = () => {
       network: new StacksTestnet(),
       anchorMode: AnchorMode.Any,
       contractAddress: "ST1NWPSRC02Z9A20RHSBGDEDG9H8CHS6ENJ2N3TTH", 
-      contractName: "moody-monkey", 
+      contractName: "sip009-nft", 
       functionName: "mint",
       functionArgs: [
         principalCV(userAddress),
@@ -46,9 +46,9 @@ const MintMoney = () => {
   return (
     <div>
       <div>
-        <p>Mint A Moody Monkey</p>
+        <p>Mint Another Ape!</p>
         <button className="MintButton" onClick={() => mint()}>
-          Mint Ape NFT 
+          Mint Ape NFT 🐵
         </button>
       </div>
       {minted && (
@@ -60,4 +60,4 @@ const MintMoney = () => {
   );
 };
 
-export default MintMoney;
+export default Mint;
