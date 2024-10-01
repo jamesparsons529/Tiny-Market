@@ -97,12 +97,12 @@ nav a::after {
   height: 2px;
   bottom: -5px;
   left: 0;
-  background-color: #00ff88; /* Green underline */
+  background-color: #00ff88; 
   transition: width 0.3s ease;
 }
 
 nav a:hover::after {
-  width: 100%; /* Underline expands on hover */
+  width: 100%; 
 }
 
 nav .nav-menu a {
@@ -113,11 +113,11 @@ nav .nav-menu a {
 nav .logo {
   font-size: 24px;
   font-weight: 700;
-  color: #00ff88; /* Logo color */
+  color: #00ff88; 
 }
 
 nav .logo:hover {
-  color: #ffffff; /* Inverse hover effect for the logo */
+  color: #ffffff; 
 }
 
 nav .button {
@@ -132,8 +132,8 @@ nav .button {
 }
 
 nav .button:hover {
-  background-color: #00cc6e; /* Darker green */
-  transform: translateY(-2px); /* Slight pop-up effect */
+  background-color: #00cc6e;
+  transform: translateY(-2px); 
 }
 
 

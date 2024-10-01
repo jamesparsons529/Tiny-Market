@@ -7,8 +7,7 @@ import {
   uintCV, 
   PostConditionMode 
 } from "@stacks/transactions";
-import { userSession } from "./ConnectWallet";
-import './css/purchaseForm.css';
+
 
 const PurchaseForm = () => {
   const { doContractCall } = useConnect();

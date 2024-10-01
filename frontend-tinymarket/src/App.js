@@ -10,16 +10,15 @@ import Home from './components/pages/home.js';
 import Profile from './components/pages/profile.js';
 import AssetSell from './components/pages/AssetSell.js';
 import AssetPurchase from './components/pages/AssetPurchase.js';
-import transactionHistory from './components/pages/transactionHistory.js';
 
 // CONTRACT FUNCTIONS
 import ConnectWallet from "./components/ConnectWallet";
 import Mint from "./components/Mint";
-import { userSession } from "./components/ConnectWallet"; // Assuming userSession is managed here
+import { userSession } from "./components/ConnectWallet"; 
 
 // ProtectedRoute Component
 function ProtectedRoute({ children }) {
-  const isUserSignedIn = userSession.isUserSignedIn(); // Check login status
+  const isUserSignedIn = userSession.isUserSignedIn(); 
 
   if (!isUserSignedIn) {
     // If not signed in, alert the user and redirect to home
@@ -27,7 +26,7 @@ function ProtectedRoute({ children }) {
     return <Navigate to="/" replace />;
   }
 
-  return children; // If signed in, render the protected component
+  return children; 
 }
 
 function App() {

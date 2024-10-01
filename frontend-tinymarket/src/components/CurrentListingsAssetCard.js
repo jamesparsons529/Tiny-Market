@@ -104,7 +104,7 @@ const CurrentListingsAssetCard = ({ contractAddress, contractName }) => {
       onFinish: (data) => {
         console.log("onFinish:", data);
         window.alert("Asset fulfilled successfully!");
-        fetchAllListings(); // Refresh listings after purchase
+        fetchAllListings();
       },
       onCancel: () => {
         console.log("onCancel:", "Transaction was canceled");

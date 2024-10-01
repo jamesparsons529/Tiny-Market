@@ -1,4 +1,3 @@
-/* Ensure all styles are scoped under the asset-purchase-container class */
 .asset-purchase-container {
     padding-top: 100px;
     display: flex;
@@ -83,6 +82,6 @@
   }
   
   button:hover {
-    background-color: #00CC00; /* Darker green on hover */
+    background-color: #00CC00;
   }
   
