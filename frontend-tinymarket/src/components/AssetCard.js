@@ -52,6 +52,7 @@ function AssetCard() {
               const tokenUri = result.value.value.data || '';
 
               const ipfsImageUrl = tokenUri.startsWith('ipfs://') ? convertIpfsUrl(tokenUri) : tokenUri;
+              console.log("ipfs url: ", ipfsImageUrl)
 
               async function fetchDataFromIpfs() {
                 try {
@@ -70,7 +71,8 @@ function AssetCard() {
               }
 
               const imageUrl = await fetchDataFromIpfs();
-              
+              console.log("image url: " + imageUrl)
+
               return {
                 ...nft,
                 principal,

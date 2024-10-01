@@ -103,16 +103,16 @@ const CurrentListingsAssetCard = ({ contractAddress, contractName }) => {
       postConditionMode: PostConditionMode.Allow,
       onFinish: (data) => {
         console.log("onFinish:", data);
-        window.alert("Asset fulfilled successfully!");
+        window.alert("NFT Purchased successfully!");
         fetchAllListings();
       },
       onCancel: () => {
         console.log("onCancel:", "Transaction was canceled");
-        window.alert("Asset fulfillment failed.");
+        window.alert("NFT Purchase Failed.");
       },
       onError: (error) => {
         console.error("Error during contract call:", error);
-        window.alert("An error occurred while fulfilling the asset. Please try again.");
+        window.alert("An error occurred while purchasing the NFT. Please try again.");
       }
     });
   };

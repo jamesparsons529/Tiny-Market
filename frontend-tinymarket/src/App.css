@@ -53,6 +53,10 @@ nav {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+.Nav-Header {
+  font-size: 25px;
+  font-weight: bold;
+}
 
 nav:hover {
   background-color: #222326;

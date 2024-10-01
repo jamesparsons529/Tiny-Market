@@ -107,11 +107,11 @@ const ListingForm = () => {
         setPrice('');
       },
       onCancel: () => {
-        window.alert("Asset listing failed.");
+        window.alert("NFT Listing Failed.");
       },
       onError: (error) => {
         console.error("Error during contract call:", error);
-        window.alert("An error occurred while listing the asset. Please try again.");
+        window.alert("An error occurred while listing the NFT. Please try again.");
       }
     });
   };

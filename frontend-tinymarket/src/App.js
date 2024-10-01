@@ -10,6 +10,7 @@ import Home from './components/pages/home.js';
 import Profile from './components/pages/profile.js';
 import AssetSell from './components/pages/AssetSell.js';
 import AssetPurchase from './components/pages/AssetPurchase.js';
+import CancelListing from './components/pages/CancelListing.js';
 
 // CONTRACT FUNCTIONS
 import ConnectWallet from "./components/ConnectWallet";
@@ -39,12 +40,13 @@ function App() {
         <nav>
           <ConnectWallet />
           <div className="nav-center">
-            <Link to="/" onClick={() => setInitialView(false)}>Tiny Market</Link>
+            <Link to="/" class = 'Nav-Header'onClick={() => setInitialView(false)}>Tiny Market</Link>
           </div>
           <div className="nav-menu">
             <Link to="/" onClick={() => setInitialView(false)} className="App-link">Home</Link>
             <Link to="/profile" onClick={() => setInitialView(false)} className="App-link">Profile</Link>
             <Link to="/assetsell" onClick={() => setInitialView(false)} className="App-link">Sell your NFTs</Link>
+            <Link to="/cancellisting" onClick={() => setInitialView(false)} className="App-link">Cancel Listing</Link>
           </div>
         </nav>
 
@@ -82,10 +84,10 @@ function App() {
               }
             />
             <Route
-              path="/transactions"
+              path="/cancellisting"
               element={
                 <ProtectedRoute>
-                  <transactionHistory />
+                  <CancelListing/>
                 </ProtectedRoute>
               }
             />
