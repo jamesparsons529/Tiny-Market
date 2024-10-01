@@ -54,12 +54,7 @@ function Profile() {
             onChange={handleImageUpload}
           />
         </div>
-
-        <div className="profile-actions">
-          <button className="action-button">My Transactions</button>
-          <button className="action-button">Edit Profile</button>
-        </div>
-
+        
         <div className="asset-section">
           <TestNetAssetCard />
         </div>

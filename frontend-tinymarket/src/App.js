@@ -45,8 +45,7 @@ function App() {
           <div className="nav-menu">
             <Link to="/" onClick={() => setInitialView(false)} className="App-link">Home</Link>
             <Link to="/profile" onClick={() => setInitialView(false)} className="App-link">Profile</Link>
-            <Link to="/assetsell" onClick={() => setInitialView(false)} className="App-link">AssetSell</Link>
-            <Link to="/assetpurchase" onClick={() => setInitialView(false)} className="App-link">AssetPurchase</Link>
+            <Link to="/assetsell" onClick={() => setInitialView(false)} className="App-link">Sell your NFTs</Link>
           </div>
         </nav>
 

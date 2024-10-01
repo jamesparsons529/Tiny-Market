@@ -127,10 +127,6 @@ function TestNetAssetCard() {
                 <p className="nft-description">NFT Contract:</p>
                 <p className="nft-contract-small">{nft.principal}</p>
                 <p className="token-id">Token ID: {nft.tokenId}</p>
-                <div className="actions">
-                  <button className="sell-button">Sell Now</button>
-                  <button className="swap-button">Swap</button>
-                </div>
               </div>
             </div>
           ))}

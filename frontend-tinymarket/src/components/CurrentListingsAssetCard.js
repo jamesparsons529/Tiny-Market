@@ -148,7 +148,6 @@ const CurrentListingsAssetCard = ({ contractAddress, contractName }) => {
                 <p className="nft-price">Price: {listing.price} STX</p>
                 <div className="actions">
                   <button className="buy-button" onClick={() => handleBuy(listing.listingId)}>Buy Now</button>
-                  <button className="swap-button">Swap</button>
                 </div>
               </div>
             </div>
